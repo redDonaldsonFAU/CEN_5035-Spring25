@@ -2,11 +2,21 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HomeComponent],
-  template: `    <main>      <header class="brand-name">        <img class="brand-logo" src="/public/logo.svg" alt="logo" aria-hidden="true" />      </header>      <section class="content">        <app-home></app-home>      </section>    </main>  `,
-  styleUrl: './app.component.css'
+  imports: [
+    RouterOutlet,
+    HomeComponent,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'CarbonTrackingSystem';
