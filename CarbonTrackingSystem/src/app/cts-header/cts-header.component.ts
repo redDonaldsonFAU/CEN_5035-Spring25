@@ -17,5 +17,5 @@ import { CtsSidenavComponent } from "../cts-sidenav/cts-sidenav.component";
   styleUrl: './cts-header.component.css'
 })
 export class CtsHeaderComponent {
-
+  showSideMenu = false;
 }

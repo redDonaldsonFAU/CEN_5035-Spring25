@@ -3,3 +3,7 @@
   box-sizing: border-box;
   padding: 25px;
 }
+
+mat-sidenav-container {
+  height: calc(100vh - 4rem)
+}

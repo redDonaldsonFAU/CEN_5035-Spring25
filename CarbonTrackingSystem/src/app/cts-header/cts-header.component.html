@@ -3,6 +3,7 @@
 		mat-icon-button
 		class="example-icon"
 		aria-label="Example icon-button with menu icon"
+		(click)="showSideMenu = !showSideMenu"
 	>
 		<mat-icon>menu</mat-icon>
 	</button>
@@ -24,4 +25,4 @@
 		<mat-icon>info</mat-icon>
 	</button>
 </mat-toolbar>
-<!-- <app-cts-sidenav></app-cts-sidenav> -->
+<app-cts-sidenav [showSideMenu]="showSideMenu"></app-cts-sidenav>
