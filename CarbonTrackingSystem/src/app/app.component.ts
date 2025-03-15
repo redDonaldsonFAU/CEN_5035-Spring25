@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { CtsHeaderComponent } from './cts-header/cts-header.component';
+import { CtsSidenavComponent } from './cts-sidenav/cts-sidenav.component';
 
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
     HomeComponent,
-    MatToolbarModule,
+    CtsHeaderComponent,
+    CtsSidenavComponent,
     MatButtonModule,
-    MatIconModule,
+    MatSidenavModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
