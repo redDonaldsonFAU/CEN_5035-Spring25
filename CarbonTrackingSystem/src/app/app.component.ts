@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+// import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CtsHeaderComponent } from './cts-header/cts-header.component';
 import { CtsSidenavComponent } from './cts-sidenav/cts-sidenav.component';
@@ -8,7 +8,7 @@ import { CtsSidenavComponent } from './cts-sidenav/cts-sidenav.component';
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet,
+    // RouterOutlet,
     HomeComponent,
     CtsHeaderComponent,
     CtsSidenavComponent,
