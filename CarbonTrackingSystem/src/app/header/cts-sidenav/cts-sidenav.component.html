@@ -1,13 +1,13 @@
 <mat-sidenav-container>
-	<mat-sidenav opened mode="over" [style.width]="'150px'">
+	<mat-sidenav opened mode="side" [style.width]="sideNavWidth">
 		<mat-nav-list>
 			<a mat-list-item *ngFor="let item of navItems()">
 				<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-				<span matListItemTitle>{{ item.label }}</span></a
-			>
+				<span matListItemTitle>{{ item.label }}</span>
+			</a>
 		</mat-nav-list>
 	</mat-sidenav>
-	<mat-sidenav-content>
+	<mat-sidenav-content [style.margin-left]="sideNavWidth">
 		<!-- <router-outlet></router-outlet> -->
 	</mat-sidenav-content>
 </mat-sidenav-container>

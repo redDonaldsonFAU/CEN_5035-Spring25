@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 // import { RouterOutlet } from '@angular/router';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -19,5 +19,8 @@ import { CtsSidenavComponent } from "../cts-sidenav/cts-sidenav.component";
   styleUrl: './cts-header.component.css'
 })
 export class CtsHeaderComponent {
-  showSideMenu = false;
+  showSideMenu = signal(false);
+
+  sideNavWidth = computed(() => this.showSideMenu() ? '65px' : '200px')
+
 }
