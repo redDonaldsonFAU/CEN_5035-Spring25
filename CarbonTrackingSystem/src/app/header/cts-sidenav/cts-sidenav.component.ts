@@ -1,5 +1,10 @@
 import { Component, Input, signal } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import {
+	RouterModule,
+	RouterOutlet,
+	RouterLink,
+	RouterLinkActive
+} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,6 +23,8 @@ export type NavItem = {
 	selector: 'app-cts-sidenav',
 	imports: [
 		RouterOutlet,
+		RouterLink,
+		RouterLinkActive,
 		CommonModule,
 		MatButtonModule,
 		MatSidenavModule,

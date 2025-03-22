@@ -12,10 +12,19 @@ mat-nav-list {
   padding-top: 1rem;
 }
 
+a {
+  margin-bottom: 8px;
+}
+
 mat-sidenav-container {
   height: calc(100vh - 64px)
 }
 
 .offset {
-  padding: 3rem;
+  padding: 24px;
+}
+
+.currentPage {
+    border-left-color: var(--primary-color);
+    background: rgba(0, 0, 0, 0.05);
 }
