@@ -1,5 +1,7 @@
-import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -15,6 +17,7 @@ export type NavItem = {
 @Component({
 	selector: 'app-cts-sidenav',
 	imports: [
+		RouterOutlet,
 		CommonModule,
 		MatButtonModule,
 		MatSidenavModule,
@@ -25,7 +28,7 @@ export type NavItem = {
 	styleUrl: './cts-sidenav.component.css'
 })
 export class CtsSidenavComponent {
-	@Input() sideNavWidth = '200px';
+	@Input() sideNavWidth = '150px';
 
 	navItems = signal<NavItem[]>([
 		{
