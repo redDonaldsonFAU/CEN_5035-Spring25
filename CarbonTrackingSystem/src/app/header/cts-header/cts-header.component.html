@@ -1,28 +1,29 @@
 <mat-toolbar>
-	<button
-		mat-icon-button
-		class="example-icon"
-		aria-label="Example icon-button with menu icon"
-		(click)="showSideMenu.set(!showSideMenu())"
-	>
-		<mat-icon>menu</mat-icon>
-	</button>
-	<span>CarbonTrackingSystem</span>
+    <button
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with menu icon"
+        (click)="showSideMenu.set(!showSideMenu())"
+    >
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>CarbonTrackingSystem</span>
 
-	<span class="example-spacer"></span>
-	<button
-		mat-icon-button
-		class="example-icon login-icon"
-		aria-label="Login Button"
-	>
-		<mat-icon>login</mat-icon>
-	</button>
-	<button
-		mat-icon-button
-		class="example-icon favorite-icon"
-		aria-label="Example icon-button with info icon"
-	>
-		<mat-icon>info</mat-icon>
-	</button>
+    <span class="example-spacer"></span>
+    <button
+        mat-icon-button
+        class="example-icon login-icon"
+        aria-label="Login Button"
+    >
+        <mat-icon>login</mat-icon>
+    </button>
+    <button
+        mat-icon-button
+        class="example-icon favorite-icon"
+        aria-label="Information"
+        (click)="openDialog()"
+    >
+        <mat-icon>info</mat-icon>
+    </button>
 </mat-toolbar>
 <app-cts-sidenav [sideNavWidth]="sideNavWidth()"></app-cts-sidenav>
