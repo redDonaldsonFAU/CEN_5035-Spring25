@@ -1,4 +1,4 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input, signal, inject } from '@angular/core';
 import {
     RouterModule,
     RouterOutlet,
@@ -34,30 +34,31 @@ export type NavItem = {
         MatIconModule
     ],
     templateUrl: './cts-sidenav.component.html',
-    styleUrl: './cts-sidenav.component.css'
+    styleUrl: './cts-sidenav.component.css',
+    providers: [CacheService]
 })
 export class CtsSidenavComponent {
     @Input() sideNavWidth = '150px';
 
     // data?: any[];
-    // constructor(private cacheService: CacheService) {}
+    private cacheService = inject(CacheService);
 
     navItems = signal<NavItem[]>(this.getData('login'));
 
     getData(login: string): NavItem[] {
-        // const cachedData = this.cacheService.getCache(login);
+        const cachedData = this.cacheService.getCache(login);
 
-        // // If the data is not in cache, we retrieve it from the server and store it in the cache.
-        // if (!cachedData) {
-        //     return [
-        //         {
-        //             icon: 'home',
-        //             label: 'Home',
-        //             route: 'home',
-        //             visible: ['Employee', 'Employer', 'Admin']
-        //         }
-        //     ];
-        // }
+        // If the data is not in cache, we retrieve it from the server and store it in the cache.
+        if (!cachedData) {
+            return [
+                {
+                    icon: 'home',
+                    label: 'Home',
+                    route: 'home',
+                    visible: ['Employee', 'Employer', 'Admin']
+                }
+            ];
+        }
 
         return [
             {
@@ -87,8 +88,8 @@ export class CtsSidenavComponent {
         ];
     }
 
-    // ngOnDestroy(): void {
-    //     // We unsubscribe from the cache and clear the cache data when the component is destroyed.
-    //     this.cacheService.deleteCache('login');
-    // }
+    ngOnDestroy(): void {
+        // We unsubscribe from the cache and clear the cache data when the component is destroyed.
+        this.cacheService.deleteCache('login');
+    }
 }
