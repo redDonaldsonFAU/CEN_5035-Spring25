@@ -1,7 +1,8 @@
-const express = require("express");
+import express from "express";
+import mongoose from "mongoose";
 const app = express();
 const PORT = 3000;
-const path = require("path");
+import path from "path";
 
 app.get('*', (request, response) => {
 	const status = {
