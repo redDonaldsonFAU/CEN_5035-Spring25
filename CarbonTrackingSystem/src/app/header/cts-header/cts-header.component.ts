@@ -5,6 +5,7 @@ import {
     inject,
     signal
 } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +22,9 @@ import { CtsSidenavComponent } from '../cts-sidenav/cts-sidenav.component';
 @Component({
     selector: 'app-cts-header',
     imports: [
+        RouterOutlet,
+        RouterLink,
+        RouterLinkActive,
         MatToolbarModule,
         MatButtonModule,
         MatIconModule,
@@ -30,6 +34,7 @@ import { CtsSidenavComponent } from '../cts-sidenav/cts-sidenav.component';
     styleUrl: './cts-header.component.css'
 })
 export class CtsHeaderComponent {
+    loginRoute = 'login';
     readonly dialog = inject(MatDialog);
     showSideMenu = signal(false);
 
