@@ -1,10 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-require("https")
+require("https");
 const app = express();
 const PORT = 3000;
 const path = require("path");
+const cors = require("cors");
 
 mongoose.connect(process.env.MONGODB_URI).then(() => {
   console.log('Connected to MongoDB');
@@ -12,11 +13,13 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
   console.error('Error connecting to MongoDB:', err);
 });
 
+
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);
 });
 
 app.get("/vehicle", (req, res) => {
+  console.log('vehicle accessed');
   const result = {
     foo: "bar"
   };

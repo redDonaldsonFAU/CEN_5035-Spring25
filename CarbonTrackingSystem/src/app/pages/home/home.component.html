@@ -79,26 +79,26 @@
 			</div>
 		</div> -->
 
-        <div class="slideshow-container">
-            <div class="mySlides fade">
-                <img ngSrc="../../images/city.jpg" fill />
-            </div>
-
-            <div class="mySlides fade">
-                <img ngSrc="../../images/traffic.jpg" fill />
-            </div>
-
-            <div class="mySlides fade">
-                <img ngSrc="../../images/public.jpg" fill />
-            </div>
-        </div>
+        <!-- <c-carousel transition="crossfade">
+            <c-carousel-indicators></c-carousel-indicators>
+            <c-carousel-inner>
+                <c-carousel-item *ngFor="let slide of slides">
+                    <img
+                        [src]="slide.src"
+                        alt="{{ slide.title }}"
+                        class="d-block w-100"
+                        loading="lazy"
+                    />
+                </c-carousel-item>
+            </c-carousel-inner>
+        </c-carousel> -->
         <br />
 
-        <div style="text-align: center">
+        <!-- <div style="text-align: center">
             <span class="dot"></span>
             <span class="dot"></span>
             <span class="dot"></span>
-        </div>
+        </div> -->
 
         <!--===============================================================================================-->
         <script src="../../vendor/jquery/jquery-3.2.1.min.js"></script>
