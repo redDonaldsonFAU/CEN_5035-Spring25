@@ -10,9 +10,9 @@ import { HttpService } from '../../http.service';
 export class LoginComponent {
     constructor(private httpService: HttpService) {}
     doLogin() {
-        console.log('clicked');
         this.httpService.getData('vehicle').subscribe((res) => {
-            console.log(JSON.stringify(res));
+            const data = JSON.parse(JSON.stringify(res));
+            console.log(`:RED: ${data.foo}`);
         });
     }
 }
