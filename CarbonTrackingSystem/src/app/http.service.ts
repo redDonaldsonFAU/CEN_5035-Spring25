@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class HttpService {
-    private apiUrl = 'http://localhost:3000';
+    private apiUrl = 'http://localhost:8080';
 
     constructor(private http: HttpClient) {}
 
@@ -14,7 +14,15 @@ export class HttpService {
         return this.http.get(`${this.apiUrl}/${endPoint}`);
     }
 
-    postData(data: any) {
-        return this.http.post(`${this.apiUrl}/data`, data);
+    postData(endPoint: string, data: any) {
+        return this.http.post(`${this.apiUrl}/${endPoint}`, data);
+    }
+
+    putData(endPoint: string, data: any) {
+        return this.http.post(`${this.apiUrl}/${endPoint}`, data);
+    }
+
+    deleteData(endPoint: string, data: any) {
+        return this.http.delete(`${this.apiUrl}/${endPoint}`, data);
     }
 }
