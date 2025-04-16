@@ -7,13 +7,14 @@ const PORT = 8080;
 const path = require("path");
 const cors = require("cors");
 const axios = require('axios');
-const API_KEY = 'AIzaSyD-GXsjtt6QCy5lYh_o9KEpfwQwot5zeDk';
+const mongoUri = 'mongodb+srv://ccdb:R4ze8k5MdTt8mzr@carboncreditsdb.mongocluster.cosmos.azure.com/carbondb';
+const dashboardRoutes = require('./routes/dashboard');
+const tripRoutes = require('./routes/trip');
 
-mongoose.connect(process.env.MONGODB_URI).then(() => {
-  console.log('Connected to MongoDB');
-}).catch(err => {
-  console.error('Error connecting to MongoDB:', err);
-});
+mongoose.connect(mongoUri)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.log('Error connecting to MongoDB:', err));
+
 
 app.use(cors());
 app.options('/{*any}', cors());
@@ -29,9 +30,8 @@ app.use(express.static(path.join(__dirname, '../dist/carbon-tracking-system/brow
 
 app.use(express.json());
 
-app.get('/{*any}', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/carbon-tracking-system/browser/index.html'));
-});
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/trip', tripRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);
@@ -99,4 +99,8 @@ app.post('/api/distance', async (req, res) => {
   } catch (error) {
     res.status(500).send(error.message);
   }
+});
+
+app.get('/{*any}', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/carbon-tracking-system/browser/index.html'));
 });

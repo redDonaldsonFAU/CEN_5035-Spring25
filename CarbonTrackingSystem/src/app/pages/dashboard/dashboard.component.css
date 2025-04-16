@@ -1,0 +1,23 @@
+/* dashboard.component.css */
+.dashboard-card {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  .company-info, .vehicle-info {
+    margin-bottom: 20px;
+  }
+  
+  mat-list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  

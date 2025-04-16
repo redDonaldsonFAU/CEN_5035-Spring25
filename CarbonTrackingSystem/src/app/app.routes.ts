@@ -5,6 +5,8 @@ import { TradesComponent } from './pages/trades/trades.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AddTripComponent } from './pages/add-trip/add-trip.component';
 
 export const routes: Routes = [
     {
@@ -35,5 +37,13 @@ export const routes: Routes = [
     {
         path: 'signup',
         component: SignupComponent
+    },
+    { 
+        path: 'dashboard', 
+        component: DashboardComponent 
+    },
+    { 
+        path: 'add-trip', 
+        component: AddTripComponent 
     }
 ];
