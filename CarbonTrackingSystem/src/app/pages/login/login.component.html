@@ -72,7 +72,7 @@
             >
                 <div class="wrap-login100">
                     <form class="login100-form validate-form" #userForm = "ngForm" (ngSubmit)="loginFunc(userForm.value)">
-                        <span class="login100-form-title p-b-34 p-t-27">
+                        <span class="login100-form-title p-b-34 p-t-14">
                             Log in
                         </span>
 
@@ -116,7 +116,9 @@
                     </form>
                         <br />
                         <div class="container-login100-form-btn">
-                            <a href = "../signup/signup.component.html" class="login100-form-btn">Signup</a>
+                            <!-- Example: login.component.html -->
+                            <button class="login100-form-btn" [routerLink]="['/signup']">Signup</button>
+
                         </div>
 
                         <div class="text-center p-t-30">

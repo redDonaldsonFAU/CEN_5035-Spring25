@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 import { LoginComponent } from './login.component';
 

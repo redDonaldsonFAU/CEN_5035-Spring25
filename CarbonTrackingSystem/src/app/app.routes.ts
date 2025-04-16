@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { TripsComponent } from './pages/trips/trips.component';
 import { TradesComponent } from './pages/trades/trades.component';
@@ -33,7 +33,14 @@ export const routes: Routes = [
         component: SettingsComponent
     },
     {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'home'
+    },
+    {
         path: 'signup',
         component: SignupComponent
     }
 ];
+
+export class AppRoutingModule {}
