@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './signup.component.css'
 })
 export class SignupComponent {
+  title = 'Signup Form';
 
+  sumbitSignup(event: Event) {
+    event.preventDefault();
+
+    console.log('Signup form');
+  }
 }
