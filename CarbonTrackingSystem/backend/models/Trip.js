@@ -49,6 +49,11 @@ const TripSchema = mongoose.Schema(
         Points: {
             type: Number,
             required: true
+        },
+        // email
+        Email: {
+            type: String,
+            required: true
         }
     }, 
     // timestamps
