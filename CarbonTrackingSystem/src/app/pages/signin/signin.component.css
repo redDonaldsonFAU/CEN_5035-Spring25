@@ -1,0 +1,89 @@
+/* login.component.scss */
+.limiter {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .container-login100 {
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  .wrap-login100 {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+  }
+  
+  .login100-form-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .wrap-input100 {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .input100 {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .input100:focus {
+    border-color: #2d9cdb;
+  }
+  
+  .focus-input100 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+  }
+  
+  .container-login100-form-btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .login100-form-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #2d9cdb;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .login100-form-btn:hover {
+    background-color: #2188c5;
+  }
+  
+  .txt1 {
+    color: #2d9cdb;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  
+  .txt1:hover {
+    text-decoration: underline;
+  }  

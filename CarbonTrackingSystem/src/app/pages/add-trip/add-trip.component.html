@@ -3,27 +3,32 @@
     <form [formGroup]="tripForm" (ngSubmit)="submitTrip()">
         <mat-form-field>
           <mat-label>Employee ID</mat-label>
-          <input matInput formControlName="_employeeID">
+          <input matInput formControlName="_employeeID" readonly>
         </mat-form-field>
       
         <mat-form-field>
-          <mat-label>Company ID</mat-label>
-          <input matInput formControlName="_companyID">
-        </mat-form-field>
+          <mat-label>Company Name</mat-label>
+          <input matInput formControlName="_companyName" readonly>
+          </mat-form-field>
       
         <mat-form-field>
           <mat-label>Distance</mat-label>
           <input matInput formControlName="distance">
         </mat-form-field>
       
-        <mat-form-field>
-          <mat-label>Method</mat-label>
-          <input matInput formControlName="method">
+        <mat-form-field appearance="fill">
+          <mat-label>Travel Method</mat-label>
+          <mat-select formControlName="method">
+            <mat-option value="personal car">Personal Car</mat-option>
+            <mat-option value="public transit">Public Transit</mat-option>
+            <mat-option value="bike">Bike</mat-option>
+            <mat-option value="walk">Walk</mat-option>
+          </mat-select>
         </mat-form-field>
       
         <mat-form-field>
           <mat-label>Points</mat-label>
-          <input matInput formControlName="points">
+          <input matInput formControlName="points" readonly>
         </mat-form-field>
       
         <button mat-raised-button color="primary" type="submit">Submit Trip</button>

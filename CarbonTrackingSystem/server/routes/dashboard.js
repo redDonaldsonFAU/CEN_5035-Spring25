@@ -5,9 +5,9 @@ const Employee = require('../models/employee.model');
 const Company = require('../models/company.model');
 const Vehicle = require('../models/vehicle.model');
 
-router.get('/:userId', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-      const user = await Employee.findById(req.params.userId);
+      const user = await Employee.findById(req.params.id);
       if (!user) return res.status(404).send({ error: 'Employee not found' });
   
       const company = await Company.findById(user._companyID);

@@ -10,6 +10,7 @@ const axios = require('axios');
 const mongoUri = 'mongodb+srv://ccdb:R4ze8k5MdTt8mzr@carboncreditsdb.mongocluster.cosmos.azure.com/carbondb';
 const dashboardRoutes = require('./routes/dashboard');
 const tripRoutes = require('./routes/trip');
+const authRoutes = require('./routes/auth');
 
 mongoose.connect(mongoUri)
   .then(() => console.log('Connected to MongoDB'))
@@ -32,6 +33,7 @@ app.use(express.json());
 
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/trip', tripRoutes);
+app.use('/api/auth', authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);

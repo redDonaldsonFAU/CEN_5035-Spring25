@@ -10,7 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { CacheService } from '../../cache.service';
 
 @Component({
   selector: 'app-add-trip',
@@ -22,6 +24,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     AsyncPipe,
     NgIf,
     ReactiveFormsModule,
@@ -36,29 +39,81 @@ export class AddTripComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private cacheService: CacheService
   ) {}
 
   ngOnInit(): void {
+    const user = this.cacheService.getCache('user');
+    const vehicle = this.cacheService.getCache('vehicles');
+    const employeeID = user?._id;
+    const companyID = user?._companyID;
+    const companyName = user?.CompanyName;
+    const vehicleType = vehicle?.VehicleType?.toLowerCase();
+  
     this.tripForm = this.fb.group({
-      distance: ['', Validators.required],
-      method: ['', Validators.required],
+      _employeeID: [employeeID],
+      _companyID: [companyID],
+      _companyName: [companyName],
+      method: [''],
+      distance: [''],
+      points: [{ value: '', disabled: true }], // disable so it's not editable by user
+      isdeleted: [false]
+    });
+  
+    // Recalculate points when method or distance changes
+    this.tripForm.valueChanges.subscribe(values => {
+      const { method, distance } = values;
+      let points = 0;
+      const miles = parseFloat(distance) || 0;
+  
+      if (method === 'personal car') {
+        switch (vehicleType) {
+          case 'gasoline':
+            points = 0.85 * miles;
+            break;
+          case 'hybrid':
+            points = 1 * miles;
+            break;
+          case 'electric':
+            points = 2 * miles;
+            break;
+        }
+      }
+     else if (method === 'public transit') {
+      points = 1.5 * miles;
+     } else if (method === 'walking') {
+      points = 3 * miles;
+     } else if (method === 'biking') {
+      points = 2.5 * miles;
+     } else {
+      points = 0;
+     }
+  
+      this.tripForm.get('points')?.setValue(points, { emitEvent: false });
     });
   }
 
   submitTrip() {
+
+    const { method, distance, points } = this.tripForm.getRawValue();
+    const user = this.cacheService.getCache('user');
+    const employeeID = user?._id;
+    const companyID = user?._companyID;
+    
     const tripData = {
-      distance: parseFloat(this.tripForm.value.distance),
-      method: this.tripForm.value.method,
-      _employeeID: '67f19e67a97033b7955b21e6', // You would replace this with a dynamic user ID
-      _companyID: '67ffd47f62e104d85bda2821',
-      isdeleted: false,
+      
+      _employeeID: employeeID, 
+      _companyID: companyID,
+      distance,
+      method,
+      points, 
+      isdeleted: false
     };
 
+    //const form = this.tripForm.getRawValue(); // get values including disabled ones
     this.http.post('/api/trip', tripData).subscribe({
-      next: () => {
-        this.router.navigate(['/dashboard']);
-      },
+      next: () => this.router.navigate(['/dashboard', user?._id]),
       error: err => console.error('Trip submission failed:', err),
     });
   }

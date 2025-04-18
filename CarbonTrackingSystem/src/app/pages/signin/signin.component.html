@@ -64,29 +64,84 @@
         <link rel="stylesheet" type="text/css" href="../../app.component.css" />
         <!--===============================================================================================-->
     </head>
-
     <body>
-        <!-- <img src="img/city.jpg" alt="city image" /> -->
-        <div class="slideshow-container">
-            <div class="mySlides fade">
-                <img src="../../images/city.jpg" style="width: 100%" />
-            </div>
+        <div class="limiter">
+            <div
+                class="container-login100"
+                style="background-color: blue;"
+            >
+                <div class="wrap-login100">
+                    <form class="login100-form validate-form" 
+                    [formGroup]="loginForm"
+                    (ngSubmit)="onLogin()">
 
-            <div class="mySlides fade">
-                <img src="../../images/traffic.jpg" style="width: 100%" />
-            </div>
+                        <span class="login100-form-title p-b-34 p-t-14">
+                            Log in
+                        </span>
 
-            <div class="mySlides fade">
-                <img src="../../images/public.jpg" style="width: 100%" />
-            </div>
+                            <div
+                                class="wrap-input100 validate-input"
+                                data-validate="Enter username"
+                            >
+                                <input
+                                    class="input100"
+                                    type="text"
+                                    name="email"
+                                    placeholder="Username"
+                                    formControlName="email"
+                                >
+                                <span
+                                    class="focus-input100"
+                                    data-placeholder="&#xf207;"
+                                ></span>
+                            </div>
+
+                            <div
+                                class="wrap-input100 validate-input"
+                                data-validate="Enter password"
+                            >
+                                <input
+                                    class="input100"
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    formControlName="password"
+                                >
+                                <span
+                                    class="focus-input100"
+                                    data-placeholder="&#xf191;"
+                                ></span>
+                            </div>
+
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn">Login</button>
+                        </div>
+                    </form>
+                        <br />
+                        <div class="container-login100-form-btn">
+                            <!-- Example: login.component.html -->
+                            <button class="login100-form-btn" [routerLink]="['/signup']">Signup</button>
+
+                        </div>
+
+                        <div class="text-center p-t-30">
+                            <a class="txt1" href="#"> Forgot Password? </a>
+                        </div>
+                    
+                </div>
+
+           <!-- checking if it works
+                <h3>{{loginData?.password}}</h3>
+                <h3>{{loginData?.password}}</h3> -->
+            </div> 
+            
         </div>
-        <br />
 
-        <!-- <div style="text-align: center">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div> -->
+        
+
+       <!--testing image <img src="../../images/city.jpg" alt="city"> -->
+
+       <!-- <div id="dropDownSelect1"></div> -->
 
         <!--===============================================================================================-->
         <script src="../../vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -104,9 +159,5 @@
         <script src="../../vendor/countdowntime/countdowntime.js"></script>
         <!--===============================================================================================-->
         <script src="../../main.js"></script>
-        <h1>Welcome!</h1>
-        <p>Welcome to the Carbon Tracking System Application!</p>
-        <p>Please log in to continue:</p>
-        <button mat-flat-button (click)="goLogin()">Login Here!</button>
     </body>
 </html>

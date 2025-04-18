@@ -1,5 +1,7 @@
 import { NgFor, CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 // import {
 //     CarouselComponent,
 //     CarouselIndicatorsComponent,
@@ -12,6 +14,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'app-home',
     imports: [
         CommonModule,
+        MatButtonModule,
         // CarouselComponent,
         // CarouselInnerComponent,
         // CarouselIndicatorsComponent,
@@ -23,6 +26,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+    constructor(private router: Router) {}
     slides: any[] = new Array(3).fill({
         id: -1,
         src: '',
@@ -32,13 +36,17 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
         this.slides[0] = {
-            src: './images/city.jpg'
+            src: '../../images/city.jpg'
         };
         this.slides[1] = {
-            src: './images/traffic.jpg'
+            src: '../../images/traffic.jpg'
         };
         this.slides[2] = {
-            src: './images/public.jpg'
+            src: '../../images/public.jpg'
         };
+    }
+
+    goLogin() {
+        this.router.navigate(['/login']);
     }
 }
