@@ -34,7 +34,7 @@ import { CtsSidenavComponent } from '../cts-sidenav/cts-sidenav.component';
     styleUrl: './cts-header.component.css'
 })
 export class CtsHeaderComponent {
-    loginRoute = 'login';
+    loginRoute = 'signin';
     readonly dialog = inject(MatDialog);
     showSideMenu = signal(false);
 

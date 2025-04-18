@@ -6,7 +6,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { SignInComponent } from './pages/signin/signin.component';
 import { AddTripComponent } from './pages/add-trip/add-trip.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
     {
@@ -43,9 +45,15 @@ export const routes: Routes = [
         path: 'signup',
         component: SignupComponent
     },
+    {
+        path: 'signin',
+        component: SignInComponent
+    },
     { 
-        path: 'dashboard', 
-        component: DashboardComponent 
+        path: 'dashboard/:id',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+        import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent)
     },
     { 
         path: 'add-trip', 

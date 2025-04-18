@@ -9,14 +9,15 @@ import { CacheService } from '../../cache.service';
     styleUrl: './trips.component.css'
 })
 export class TripsComponent implements OnInit {
+  
     constructor(private httpService: HttpService) {}
     private cacheService = inject(CacheService);
 
     tripsList: any = [];
 
     ngOnInit(): void {
-        const cachedData = this.cacheService.getCache('login');
-        this.httpService
+        const cachedData = this.cacheService.getCache('user');
+             this.httpService
             .postData('trips', {
                 employeeId: cachedData.employeeId,
                 mode: 'list'

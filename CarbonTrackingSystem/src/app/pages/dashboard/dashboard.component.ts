@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,14 +34,16 @@ export class DashboardComponent implements OnInit {
   company: any;
   vehicle: any;
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private dashboardService: DashboardService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    const userId = '67f19e67a97033b7955b21e6'; // Replace with dynamic value if needed
-    this.dashboardService.getDashboardData(userId).subscribe((data: any) => {
-      this.user = data.user;
-      this.company = data.company;
-      this.vehicle = data.vehicle;
-    });
+    const userId = this.route.snapshot.paramMap.get('id'); // Replace with dynamic value if needed
+    if (userId) {
+      this.dashboardService.getDashboardData(userId).subscribe((data: any) => {
+        this.user = data.user;
+        this.company = data.company;
+        this.vehicle = data.vehicle;
+      });
+    }
   }
 }
