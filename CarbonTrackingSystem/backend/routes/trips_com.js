@@ -21,6 +21,7 @@ async function GCAddress(address) {
             timeout: 15000, // miliseconds
         });
 
+        // obtaining corrdinates (lat and lon) from Google Geocoordinaes API.
         const GCResult = response?.data?.results?.[0]
         if (GCResult?.geometry?.location && response?.data?.status === 'OK') {
             const location = GCResult.geometry.location;
