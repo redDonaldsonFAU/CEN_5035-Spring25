@@ -1,33 +1,153 @@
-<div class="dashboard-container" *ngIf="user">
-    <mat-card>
-      <mat-card-title>User Info</mat-card-title>
-      <mat-card-content>
-        <p><strong>Name:</strong> {{ user.Firstname }} {{ user.Lastname }}</p>
-        <p><strong>Email:</strong> {{ user.Email }}</p>
-        <p><strong>Home Address:</strong> {{ user['Home Address'] }}</p>
-        <p><strong>Distance to Work:</strong> {{ user.DistanceToWork }}</p>
-      </mat-card-content>
-      <button mat-raised-button color="primary" routerLink="/add-trip">
-        Add Trip
-      </button>
-    </mat-card>
-  
-    <mat-card *ngIf="company">
-      <mat-card-title>Company Info</mat-card-title>
-      <mat-card-content>
-        <p><strong>Name:</strong> {{ company.CompanyName }}</p>
-        <p><strong>Address:</strong> {{ company.CompanyAddress }}</p>
-        <p><strong>Email:</strong> {{ company.CompanyEmail }}</p>
-      </mat-card-content>
-    </mat-card>
-  
-    <mat-card *ngIf="vehicle">
-      <mat-card-title>Vehicle Info</mat-card-title>
-      <mat-card-content>
-        <p><strong>Make:</strong> {{ vehicle.Make }}</p>
-        <p><strong>Model:</strong> {{ vehicle.Model }}</p>
-        <p><strong>Type:</strong> {{ vehicle['Vehicle Type'] }}</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  
+<!DOCTYPE html>
+  <head>
+      <!-- Liscensed CC BY 3.0 -->
+      <title>Dashboard</title>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <!--=========== Will clean up code later ==========================================================-->
+      <link
+          rel="icon"
+          type="image/png"
+          href="../../images/icons/favicon.ico"
+      />
+      <!--===============================================================================================-->
+      <link
+          rel="stylesheet"
+          type="text/css"
+          href="../../vendor/bootstrap/css/bootstrap.min.css"
+      />
+      <!--===============================================================================================-->
+      <link
+          rel="stylesheet"
+          type="text/css"
+          href="../../fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+      />
+      <!--===============================================================================================-->
+      <link
+          rel="stylesheet"
+          type="text/css"
+          href="../../fonts/iconic/css/material-design-iconic-font.min.css"
+      />
+      <!--===============================================================================================-->
+      <link
+          rel="stylesheet"
+          type="text/css"
+          href="../../vendor/animate/animate.css"
+      />
+      <!--===============================================================================================-->
+      <link
+          rel="stylesheet"
+          type="text/css"
+          href="../../vendor/css-hamburgers/hamburgers.min.css"
+      />
+      <!--===============================================================================================-->
+      <link
+          rel="stylesheet"
+          type="text/css"
+          href="../../vendor/animsition/css/animsition.min.css"
+      />
+      <!--===============================================================================================-->
+      <link
+          rel="stylesheet"
+          type="text/css"
+          href="../../vendor/select2/select2.min.css"
+      />
+      <!--===============================================================================================-->
+      <link
+          rel="stylesheet"
+          type="text/css"
+          href="../../vendor/daterangepicker/daterangepicker.css"
+      />
+      <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../../util.css" />
+      <link rel="stylesheet" type="text/css" href="../../app.component.css" />
+      <link rel="stylesheet" type="text/css" href="dashboard.component.css"/>
+      <!--===============================================================================================-->
+  </head>
+    <div class="dashboard-wrapper">
+      <div class="influence-profile">
+          <div class="container-fluid dashboard-content ">
+              <!-- pageheader -->
+              <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                      <div class="page-header">
+                          <h1 class="mb-2">Dashboard</h1>
+                      </div>
+                  </div>
+              </div>
+
+    <!--card profile-->
+    <div class="row">
+      <div class="col-xl-3 col-lg-3 col-md-5 col-sm-12 col-12">
+        <div class="card">
+          <div class="text-center">
+            <h2 class="font-24 mb-0" style="padding: 10px;">Name: {{ user.Firstname }} {{ user.Lastname }}</h2>
+          </div>
+          <div class="card-body border-top">
+            <h3 class="font-16">Contact Information</h3>
+            <div class="">
+                <ul class="list-unstyled mb-0">
+                  <li class="mb-2">Email: {{ user.Email }}</li>
+                  <li class="mb-2">Phone Number: {{ user.PhoneNumber }}</li>
+                  <li class="mb-2">Home Address: {{user['Home Address']}}</li>
+                  <li class="mb-2">Distance to Work: {{ user.DistanceToWork }}</li>
+                </ul>
+            </div>
+          </div>
+          <div class="card-body border-top">
+            <h3 class="font-16">Company Information</h3>
+              <ul class="list-unstyled mb-0">
+                <li class="mb-2">Company Name: {{ company.CompanyName }}</li>
+                <li class="mb-2">Address: {{ company.CompanyAddress }}</li>
+                <li class="mb-2">Work Email: {{ company.CompanyEmail }}</li>
+              </ul>
+          </div>
+          <div class="card-body border-top">
+            <h3 class="font-16">Vehicle Information</h3>
+              <ul class="list-unstyled mb-0">
+                <li class="mb-2">Make: {{ vehicle.Make }}</li>
+                <li class="mb-2">Model: {{ vehicle.Model }}</li>
+                <li class="mb-2">Type: {{ vehicle['Vehicle Type'] }}</li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <button mat-raised-button color="primary" routerLink="/add-trip">
+      Add Trip
+    </button>
+    <!---
+    <div class="dashboard-container" *ngIf="user">
+        <mat-card>
+          <mat-card-title>User Info</mat-card-title>
+          <mat-card-content>
+            <p><strong>Name:</strong> {{ user.Firstname }} {{ user.Lastname }}</p>
+            <p><strong>Email:</strong> {{ user.Email }}</p>
+            <p><strong>Home Address:</strong> {{ user['Home Address'] }}</p>
+            <p><strong>Distance to Work:</strong> {{ user.DistanceToWork }}</p>
+          </mat-card-content>
+        
+          <button mat-raised-button color="primary" routerLink="/add-trip">
+            Add Trip
+          </button>
+        </mat-card> 
+      
+        <mat-card *ngIf="company">
+          <mat-card-title>Company Info</mat-card-title>
+          <mat-card-content>
+            <p><strong>Name:</strong> {{ company.CompanyName }}</p>
+            <p><strong>Address:</strong> {{ company.CompanyAddress }}</p>
+            <p><strong>Email:</strong> {{ company.CompanyEmail }}</p>
+          </mat-card-content>
+        </mat-card>
+      
+        <mat-card *ngIf="vehicle">
+          <mat-card-title>Vehicle Info</mat-card-title>
+          <mat-card-content>
+            <p><strong>Make:</strong> {{ vehicle.Make }}</p>
+            <p><strong>Model:</strong> {{ vehicle.Model }}</p>
+            <p><strong>Type:</strong> {{ vehicle['Vehicle Type'] }}</p>
+          </mat-card-content>
+        </mat-card> -->
+      </div>

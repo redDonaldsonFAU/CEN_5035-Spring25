@@ -30,5 +30,6 @@ export class LoginComponent {
     }
 
     signupRoute = 'signup';
+    loginRoute = 'dashboard';
     
 }
