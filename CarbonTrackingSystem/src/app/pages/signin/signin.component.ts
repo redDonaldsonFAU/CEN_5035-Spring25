@@ -48,17 +48,17 @@ export class SignInComponent {
   }
 
   onLogin() {
-    //console.log('Login button clicked'); //  Check if this logs
+    console.log('Login button clicked'); //  Check if this logs
     //console.log('Form Data:', this.loginForm.value); // check what data is being sent
   
     this.http.post<any>('/api/auth', this.loginForm.value).subscribe({
       next: (res) => {
-        //console.log('login pre cache set', res); // check cache variable
+        console.log('login response', res); // check cache variable
         this.cacheService.setCache('user', res.user);
         this.cacheService.setCache('company', res.company);
         this.cacheService.setCache('vehicles', res.vehicles);
         this.cacheService.setCache('trips', res.trips);
-        //console.log('login post cache set', this.cacheService.getCache('user')); //check cache variable
+        console.log('login post cache set', this.cacheService.getCache('user')); //check cache variable
         //console.log('login post cache set', this.cacheService.getCache('company'));
         //console.log('login post cache set', this.cacheService.getCache('vehicles'));
         //console.log('login post cache set', this.cacheService.getCache('trips'));

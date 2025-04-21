@@ -9,6 +9,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SignInComponent } from './pages/signin/signin.component';
 import { AddTripComponent } from './pages/add-trip/add-trip.component';
 import { AuthGuard } from './auth.guard';
+import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
     {
@@ -16,6 +17,7 @@ export const routes: Routes = [
         pathMatch: 'full',
         redirectTo: 'home'
     },
+    
     {
         path: 'home',
         component: HomeComponent
@@ -37,11 +39,6 @@ export const routes: Routes = [
         component: SettingsComponent
     },
     {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'home'
-    },
-    {
         path: 'signup',
         component: SignupComponent
     },
@@ -50,15 +47,16 @@ export const routes: Routes = [
         component: SignInComponent
     },
     { 
-        path: 'dashboard/:id',
-        canActivate: [AuthGuard],
-        loadComponent: () =>
-        import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent)
-    },
-    { 
         path: 'add-trip', 
         component: AddTripComponent 
-    }
+    },
+        
+    {         
+        canActivate: [AuthGuard],
+        path: 'dashboard/:id',
+        component: DashboardComponent
+    },
+    
 ];
 
 export class AppRoutingModule {}

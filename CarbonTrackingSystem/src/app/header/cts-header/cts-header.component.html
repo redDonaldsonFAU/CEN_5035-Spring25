@@ -14,10 +14,10 @@
         mat-icon-button
         class="example-icon login-icon"
         aria-label="Login Button"
-        [routerLink]="loginRoute"
+        (click)="logout()"
     >
         <mat-icon>login</mat-icon>
-        <router-outlet></router-outlet>
+        
     </button>
     <button
         mat-icon-button

@@ -47,6 +47,6 @@ export class HomeComponent implements OnInit {
     }
 
     goLogin() {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/signin']);
     }
 }

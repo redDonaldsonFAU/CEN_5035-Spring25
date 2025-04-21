@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -8,9 +9,14 @@ export class CacheService {
 
     constructor() {}
 
+    private sidenavRefreshSubject = new BehaviorSubject<void>(undefined);
+    sidenavRefresh$ = this.sidenavRefreshSubject.asObservable();
+
+  
     setCache(key: string, data: any) {
         this.cache.set(key, data);
         localStorage.setItem(key, JSON.stringify(data)); // Store in localStorage too
+        this.sidenavRefreshSubject.next(); // Trigger refresh if user is set
     }
 
     getCache(key: string): any {

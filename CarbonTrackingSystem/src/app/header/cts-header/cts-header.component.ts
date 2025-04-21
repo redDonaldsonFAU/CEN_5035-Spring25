@@ -18,6 +18,9 @@ import {
     MatDialogTitle
 } from '@angular/material/dialog';
 import { CtsSidenavComponent } from '../cts-sidenav/cts-sidenav.component';
+import { CacheService } from '../../cache.service';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-cts-header',
@@ -28,12 +31,15 @@ import { CtsSidenavComponent } from '../cts-sidenav/cts-sidenav.component';
         MatToolbarModule,
         MatButtonModule,
         MatIconModule,
-        CtsSidenavComponent
+        CtsSidenavComponent,
+        CommonModule
     ],
     templateUrl: './cts-header.component.html',
     styleUrl: './cts-header.component.css'
 })
 export class CtsHeaderComponent {
+    private cacheService = inject(CacheService);
+    constructor(private router: Router) {}
     loginRoute = 'signin';
     readonly dialog = inject(MatDialog);
     showSideMenu = signal(false);
@@ -42,6 +48,12 @@ export class CtsHeaderComponent {
 
     openDialog() {
         this.dialog.open(Dialog);
+        this.cacheService.deleteCache('user'); // clear both in-memory and local storage
+    }
+    logout(): void {
+        
+        this.cacheService.clearAllCache(); // clear both in-memory and local storage
+        this.router.navigate(['/signin']); // redirect to login
     }
 }
 
@@ -56,5 +68,6 @@ export class CtsHeaderComponent {
         MatButtonModule
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
+    
 })
 export class Dialog {}

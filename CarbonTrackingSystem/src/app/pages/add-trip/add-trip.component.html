@@ -9,11 +9,21 @@
         <mat-form-field>
           <mat-label>Company Name</mat-label>
           <input matInput formControlName="_companyName" readonly>
-          </mat-form-field>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Starting Address</mat-label>
+          <input matInput formControlName="start">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>End Address</mat-label>
+          <input matInput formControlName="end">
+        </mat-form-field>
       
         <mat-form-field>
           <mat-label>Distance</mat-label>
-          <input matInput formControlName="distance">
+          <input matInput formControlName="distance" readonly>
         </mat-form-field>
       
         <mat-form-field appearance="fill">
@@ -30,6 +40,10 @@
           <mat-label>Points</mat-label>
           <input matInput formControlName="points" readonly>
         </mat-form-field>
+
+        <button mat-raised-button color="primary" type="button" (click)="onCalculateDistance()">
+          Calculate Distance
+        </button>
       
         <button mat-raised-button color="primary" type="submit">Submit Trip</button>
       </form>
