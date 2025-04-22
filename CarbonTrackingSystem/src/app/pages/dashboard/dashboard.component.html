@@ -81,42 +81,124 @@
       <div class="col-xl-3 col-lg-3 col-md-5 col-sm-12 col-12">
         <div class="card">
           <div class="text-center">
-            <h2 class="font-24 mb-0" style="padding: 10px;">Name: {{ user.Firstname }} {{ user.Lastname }}</h2>
+            <h2 class="font-24 mb-0" style="padding: 10px;">{{ user.Firstname }} {{ user.Lastname }}</h2>
           </div>
           <div class="card-body border-top">
-            <h3 class="font-16">Contact Information</h3>
+            <h3 class="font-16"><strong>Contact Information</strong></h3>
             <div class="">
                 <ul class="list-unstyled mb-0">
-                  <li class="mb-2">Email: {{ user.Email }}</li>
-                  <li class="mb-2">Phone Number: {{ user.PhoneNumber }}</li>
-                  <li class="mb-2">Home Address: {{user['Home Address']}}</li>
-                  <li class="mb-2">Distance to Work: {{ user.DistanceToWork }}</li>
+                  <li class="mb-2"><strong>Email: </strong>{{ user.Email }}</li>
+                  <li class="mb-2"><strong>Phone Number: </strong>{{ user.PhoneNumber }}</li>
+                  <li class="mb-2"><strong>Home Address: </strong>{{user['Home Address']}}</li>
+                  <li class="mb-2"><strong>Distance to Work: </strong>{{ user.DistanceToWork }}</li>
                 </ul>
             </div>
           </div>
           <div class="card-body border-top">
-            <h3 class="font-16">Company Information</h3>
+            <h3 class="font-16"><strong>Company Information</strong></h3>
               <ul class="list-unstyled mb-0">
-                <li class="mb-2">Company Name: {{ company.CompanyName }}</li>
-                <li class="mb-2">Address: {{ company.CompanyAddress }}</li>
-                <li class="mb-2">Work Email: {{ company.CompanyEmail }}</li>
+                <li class="mb-2"><strong>Company Name: </strong>{{ company.CompanyName }}</li>
+                <li class="mb-2"><strong>Address: </strong>{{ company.CompanyAddress }}</li>
+                <li class="mb-2"><strong>Work Email: </strong>{{ company.CompanyEmail }}</li>
               </ul>
           </div>
           <div class="card-body border-top">
-            <h3 class="font-16">Vehicle Information</h3>
+            <h3 class="font-16"><strong>Vehicle Information</strong></h3>
               <ul class="list-unstyled mb-0">
-                <li class="mb-2">Make: {{ vehicle.Make }}</li>
-                <li class="mb-2">Model: {{ vehicle.Model }}</li>
-                <li class="mb-2">Type: {{ vehicle['Vehicle Type'] }}</li>
+                <li class="mb-2"><strong>Make: </strong>{{ vehicle.Make }}</li>
+                <li class="mb-2"><strong>Model: </strong>{{ vehicle.Model }}</li>
+                <li class="mb-2"><strong>Type: </strong>{{ vehicle['Vehicle Type'] }}</li>
               </ul>
           </div>
         </div>
       </div>
+      <!--Finish profile card
+      Overview tab delete if too much work, just thought it'd look nice-->
+      <div class="col-xl-9 col-lg-9 col-md-7 col-sm-12 col-12">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="section-block">
+              <h2 class="section-title">Overview</h2>
+              <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h1 class="mb-1">60</h1>
+                      <p>Total Points</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h1 class="mb-1">6000</h1>
+                      <p>Total Miles Traveled</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h1 class="mb-1">600</h1>
+                      <p>CO2 Avoided</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!--closes overview-->
+          <!--Trips overview + add trips-->
+          <div class="col-xl-9 col-lg-9 col-md-7 col-sm-12 col-12">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="section-block">
+                  <h2 class="section-title">Your Trips</h2>
+                  <button mat-raised-button color="primary" routerLink="/add-trip">
+                    Add Trip
+                  </button>
+                  <!--recent trips cards
+                  just put most recent 3~5 trips?-->
+
+                  <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="media influencer-profile-data d-flex align-items-center p-2">
+                                    <div class="media-body ">
+                                        <div class="influencer-profile-data">
+                                            <h3 class="m-b-10">{{Trip Date}}</h3>
+                                            <p>
+                                              <span class="m-r-20 d-inline-block">Miles Traveled
+                                                <span class="m-l-10 text-primary">1.7</span>
+                                              </span>
+                                              <span class="m-r-20 d-inline-block"> Transport Type
+                                                <span class="m-l-10 text-secondary">Car</span>
+                                              </span>
+                                                <span class="m-r-20 d-inline-block">Points Earned 
+                                                  <span class="m-l-10  text-info">7</span>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!--closes style-->
     </div>
     
-    <button mat-raised-button color="primary" routerLink="/add-trip">
-      Add Trip
-    </button>
+
+    
     <!---
     <div class="dashboard-container" *ngIf="user">
         <mat-card>

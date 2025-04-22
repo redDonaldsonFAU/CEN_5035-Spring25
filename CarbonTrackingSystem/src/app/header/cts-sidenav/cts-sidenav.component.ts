@@ -76,6 +76,12 @@ export class CtsSidenavComponent implements OnInit {
         route: 'home', 
         visible: ['user', 'companyadmin', 'Admin'] 
       },
+      {
+        icon: 'space_dashboard',
+        label: 'Dashboard',
+        route: 'dashboard',
+        visible: ['user']
+      },
       { 
         icon: 'directions_car', 
         label: 'Trip', 
