@@ -79,6 +79,12 @@ function Meters2Miles(meters) {
 // Defualt point value 
 const dPoint = 20;
 
+// Points to carbon credits conversion threshold
+const ccConv_tresh = 2204.62;
+
+// Points to carbon credits conversion value
+const ccConv = 0.000454;
+
 // Build endpoints
 
 
@@ -90,6 +96,9 @@ router.post('/', async (req, res) => {
             startAddress, 
             endAddress, 
             Method, 
+            // declare points and carbon creds accumulations equated to default 0
+            points_accum = 0,
+            carbon_creds_accum = 0,
             ...tripDetails 
         } = req.body;
 
@@ -147,8 +156,48 @@ router.post('/', async (req, res) => {
                 return res.status(400).json({ message: transit_error});
         }
 
+        // Converting points (accumulated) to carbon credits:
+
+        // Declare temp variables for accumulating opints:
+
+        let cPoints_accum = points_accum;
+        let cCarbon_creds_accum = carbon_creds_accum;
+        let cCarbon_creds = carbon_creds_accum;
+
+        // Accumulate points: 
+     
+        cPoints_accum = cPoints + cPoints_accum;
+
+        // Set Accumulated points to CC conversion based on one metric
+        // tonnage of CO2 emitted, as based on fuel efficeny of the vehicle.
+        // Assuming a car that has a fuel efficiency of at least 20 mpg (or 20 miles per 1 Pount CO2 emitted)
+        // 1 Carbon Credit would be equivalent to 2204.62 pounds (or points) or CO2.
+        // At the very least, 2204.62 pounds can be used as a basis for Employees who walk, bike, or wfh.
+
+        // This value would be different for vehicles with different fuel economies, but
+        // for now 2204.62 lbs/pts can serve as a mininum basis. 
+        // As a conversion, this is .000454 Carbon Credits per point But, conversions are only made 
+        // when the accumulated points equate or reach above 2204.62. From there, one CC is awarded, which
+        // has a similar acculuation system to the point_accum variable; However, after one 
+        // CC has been award, the points_accum is reinitalized as zero, and the cycle starts again. 
+        // Only the cc_accum variable does not reinitialize for each employee.
+    
+        // Convert the accumulated cPoints_accum into carbon credits in cCarbon_creds, but only do so 
+        // after cPoints_accum is >= to the carbon credits threshold 
+
+        if (cPoints_accum >= ccConv_tresh) {
+            // Award Carbon Credits
+            cCarbon_creds = cPoints_accum * ccConv
+            // Reinitialize cPoints_accum
+            cPoints_accum = 0;
+            // Save cCarbon_creds into accmulated cCarbon_creds_accum
+            cCarbon_creds_accum = cCarbon_creds + cCarbon_creds_accum
+        }
+       
+
         // posting trip
-        const newTrip = new Trip({ ...tripDetails, startLat, endLat, startLon, endLon, Method, Dist: distanceInMiles, Points: cPoints });
+        const newTrip = new Trip({ ...tripDetails, startLat, endLat, startLon, endLon, Method, 
+            Dist: distanceInMiles, Points: cPoints, points_accum: cPoints_accum, carbon_creds:cCarbon_creds, carbon_creds_accum: cCarbon_creds_accum});
         const savedTrip = await newTrip.save();
         res.status(201).json(savedTrip);
 
@@ -199,6 +248,8 @@ router.put('/:id', async (req, res) => {
             startAddress, 
             endAddress, 
             Method, 
+            points_accum,
+            carbon_creds_accum,
             ...tripDetails 
         } = req.body;
 
@@ -217,6 +268,13 @@ router.put('/:id', async (req, res) => {
         let endLat = existingTrip.endLat;
         let endLon = existingTrip.endLon;
         let currentMethod = Method || existingTrip.Method;
+        // account for updated points vs current points
+        let cPoints = 0;
+        // Assign points and carbon credit accumulation specific to PUT (if they exist)
+        let PUT_points_accum = existingTrip.points_accum || 0;
+        let PUT_carbon_creds_accum = existingTrip.carbon_creds_accum || 0;
+        // Initialize carbon credites for update
+        let cCarbon_creds = 0; 
 
         // -- scenario: only updating addresses (start/end) with point and distance recalculation --
         // updating start address
@@ -322,7 +380,38 @@ router.put('/:id', async (req, res) => {
                 points_error2 = "Error calculating points."
                 return res.status(500).json({ message: points_error2 });
             }
+        
+           // Unlike POST, the points are accumulated in an additive manner. For each time the 
+           // User PUTs a trip, the points will be added sequentially per PUT
+
+            // Set cPoints as Accumulated points (added) as accmulated points.
+            // Add via addition (assignment)
+            PUT_points_accum += cPoints;
+
+            // Convert accumulated points to Carbon Credits with 
+            // earlier PUT_points_accum and Put_carbon_creds_accum
+            // similar to POST.
+
+            if (PUT_points_accum >= ccConv_tresh) {
+                // Award Carbon Credits
+                cCarbon_creds = PUT_points_accum * ccConv
+                // Reinitialize cPoints_accum
+                PUT_points_accum = 0;
+                // Save cCarbon_creds into accmulated cCarbon_creds_accum
+                // += operator is used again
+                PUT_carbon_creds_accum += cCarbon_creds 
+            }
+
+            //Applying updated accumulated points data to tripData
+            tripData_Update.points_accum = PUT_points_accum;
+            tripData_Update.carbon_creds = cCarbon_creds;
+            tripData_Update.carbon_creds_accum = PUT_carbon_creds_accum;
+        } else {
+            // Error handling for issues with point recalculation
+            tripData_Update.points_accum = points_accum !== undefined ? points_accum : existingTrip.points_accum;
+            tripData_Update.carbon_creds_accum = carbon_creds_accum !== undefined ? carbon_creds_accum : existingTrip.carbon_creds_accum;
         }
+
 
         // upddating trip
         const trip_updated = await Trip.findOneAndUpdate(
