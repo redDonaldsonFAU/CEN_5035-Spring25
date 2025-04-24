@@ -8,6 +8,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SignInComponent } from './pages/signin/signin.component';
 import { AddTripComponent } from './pages/add-trip/add-trip.component';
+import { CompanydashComponent } from './pages/companydash/companydash.component';
 import { AuthGuard } from './auth.guard';
 import { LayoutComponent } from './layout/layout.component';
 
@@ -55,6 +56,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         path: 'dashboard/:id',
         component: DashboardComponent
+    },
+    {         
+        canActivate: [AuthGuard],
+        path: 'companydash',
+        component: CompanydashComponent
     },
     
 ];

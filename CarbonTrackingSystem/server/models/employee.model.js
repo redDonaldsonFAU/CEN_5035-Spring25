@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+require('mongoose-double')(mongoose); 
+
+const SchemaTypes = mongoose.Schema.Types;
 
 const userSchema = new mongoose.Schema({
   Firstname: String,
@@ -11,6 +14,9 @@ const userSchema = new mongoose.Schema({
   DistanceToWork: String,
   _companyID: mongoose.Schema.Types.ObjectId,
   _vehicleID: mongoose.Schema.Types.ObjectId,
+  Role: String,
+  TotalMiles: SchemaTypes.Double,
+  TotalPoints: SchemaTypes.Double,
 }, { collection: 'employee' });
 
 module.exports = mongoose.model('Employee', userSchema);

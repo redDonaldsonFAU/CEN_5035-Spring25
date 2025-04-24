@@ -11,7 +11,9 @@ const mongoUri = 'mongodb+srv://ccdb:R4ze8k5MdTt8mzr@carboncreditsdb.mongocluste
 const dashboardRoutes = require('./routes/dashboard');
 const tripRoutes = require('./routes/trip');
 const authRoutes = require('./routes/auth');
-const distanceRoute = require('./routes/calcdistance')
+const distanceRoute = require('./routes/calcdistance');
+const gettripsRoute = require('./routes/gettrips');
+const calcpointsRoute = require('./routes/calcpoints');
 
 mongoose.connect(mongoUri)
   .then(() => console.log('Connected to MongoDB'))
@@ -32,11 +34,12 @@ app.use(express.static(path.join(__dirname, '../dist/carbon-tracking-system/brow
 
 app.use(express.json());
 
-app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/dashboard', dashboardRoutes); // API Endpoint to display company & employee dashboards
 app.use('/api/trip', tripRoutes);
 app.use('/api/auth', authRoutes);
-// API Endpoint to calculate distance
-app.use('/api/distance', distanceRoute);
+app.use('/api/distance', distanceRoute); // API Endpoint to calculate distance
+app.use('/api/gettrips', gettripsRoute); // API Endpoint to get all trips
+app.use('/api/calcpoints', calcpointsRoute); //API Endpoint to calculate points based on trips
 
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);

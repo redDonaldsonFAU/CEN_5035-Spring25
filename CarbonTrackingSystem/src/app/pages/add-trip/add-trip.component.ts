@@ -11,10 +11,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { CacheService } from '../../cache.service';
 import { GoogleDistanceService } from './googledistanceservice';
-import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-add-trip',
@@ -27,8 +26,6 @@ import { Subscription } from 'rxjs';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    AsyncPipe,
-    NgIf,
     ReactiveFormsModule,
     RouterModule
   ],

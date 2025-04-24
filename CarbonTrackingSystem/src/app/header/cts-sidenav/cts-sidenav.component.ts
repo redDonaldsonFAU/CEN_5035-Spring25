@@ -79,14 +79,20 @@ export class CtsSidenavComponent implements OnInit {
       {
         icon: 'space_dashboard',
         label: 'Dashboard',
-        route: 'dashboard',
-        visible: ['user']
+        route: `dashboard/${userData._id}`,
+        visible: ['user', 'companyadmin']
       },
       { 
         icon: 'directions_car', 
         label: 'Trip', 
         route: 'add-trip', 
         visible: ['user', 'companyadmin', 'Admin'] 
+      },
+      { 
+        icon: 'view_module', 
+        label: 'CompanyDash', 
+        route: 'companydash', 
+        visible: ['companyadmin'] 
       },
       { 
         icon: 'compare_arrows', 
@@ -109,7 +115,11 @@ export class CtsSidenavComponent implements OnInit {
 
     ngOnDestroy(): void {
         // We unsubscribe from the cache and clear the cache data when the component is destroyed.
-        this.refreshSub.unsubscribe();
+        
         this.cacheService.clearAllCache();
+        this.refreshSub = this.cacheService.sidenavRefresh$.subscribe(() => {
+          this.user.set(this.cacheService.getCache('user'));
+        });
+        this.refreshSub.unsubscribe();
     }
 }

@@ -7,11 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CacheService } from '../../cache.service';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { HttpService } from '../../http.service';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +24,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
     MatInputModule,
     MatButtonModule,
     FormsModule, 
-    JsonPipe, 
-    RouterOutlet, 
-    RouterLink, 
-    RouterLinkActive
+    RouterLink
   ]
 })
 export class SignInComponent {
