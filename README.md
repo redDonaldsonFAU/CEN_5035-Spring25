@@ -2,10 +2,10 @@
 
 Welcome to the CarbonTrackingSystem (CTS) Repository! This project was written as part of Florida Atlantic University's CEN 5035; Software Engineering course during the Spring 2025 Semester.
 This project was written in its entirety by the following students:
-    -Red Donaldson
-    -Crystal Ho
-    -Kristoffer Saine
-    -Brandon Sanford
+    - Red Donaldson
+    - Crystal Ho
+    - Kristoffer Saine
+    - Brandon Sanford
 
 # Project Specification
 
