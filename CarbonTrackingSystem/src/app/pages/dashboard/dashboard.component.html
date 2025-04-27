@@ -1,188 +1,334 @@
 <!DOCTYPE html>
-  <head>
-      <!-- Liscensed CC BY 3.0 -->
-      <title>Dashboard</title>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <!--=========== Will clean up code later ==========================================================-->
-      <link
-          rel="icon"
-          type="image/png"
-          href="../../images/icons/favicon.ico"
-      />
-      <!--===============================================================================================-->
-      <link
-          rel="stylesheet"
-          type="text/css"
-          href="../../vendor/bootstrap/css/bootstrap.min.css"
-      />
-      <!--===============================================================================================-->
-      <link
-          rel="stylesheet"
-          type="text/css"
-          href="../../fonts/font-awesome-4.7.0/css/font-awesome.min.css"
-      />
-      <!--===============================================================================================-->
-      <link
-          rel="stylesheet"
-          type="text/css"
-          href="../../fonts/iconic/css/material-design-iconic-font.min.css"
-      />
-      <!--===============================================================================================-->
-      <link rel="stylesheet" type="text/css" href="../../util.css" />
-      <link rel="stylesheet" type="text/css" href="../../app.component.css" />
-      <link rel="stylesheet" type="text/css" href="dashboard.component.css"/>
-      <!--===============================================================================================-->
-  </head>
-    <div class="dashboard-wrapper">
-      <div class="influence-profile">
-          <div class="container-fluid dashboard-content ">
-              <!-- pageheader -->
-              <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                      <div class="page-header">
-                          <h1 class="mb-2">Dashboard</h1>
-                      </div>
-                  </div>
-              </div>
-
-    <!--card profile-->
-    <div class="row">
-      <div class="col-xl-3 col-lg-3 col-md-5 col-sm-12 col-12">
-        <div class="card">
-          <div class="text-center">
-            <h2 class="font-24 mb-0" style="padding: 10px;">{{ user.Firstname }} {{ user.Lastname }}</h2>
-          </div>
-          <div class="card-body border-top">
-            <h3 class="font-16"><strong>Contact Information</strong></h3>
-            <div class="">
-                <ul class="list-unstyled mb-0">
-                  <li class="mb-2"><strong>Email: </strong>{{ user.Email }}</li>
-                  <li class="mb-2"><strong>Phone Number: </strong>{{ user.PhoneNumber }}</li>
-                  <li class="mb-2"><strong>Home Address: </strong>{{user['HomeAddress']}}</li>
-                  <li class="mb-2"><strong>Distance to Work: </strong>{{ user.DistanceToWork }}</li>
-                </ul>
-            </div>
-          </div>
-          <div class="card-body border-top">
-            <h3 class="font-16"><strong>Company Information</strong></h3>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-2"><strong>Company Name: </strong>{{ company.CompanyName }}</li>
-                <li class="mb-2"><strong>Address: </strong>{{ company.CompanyAddress }}</li>
-                <li class="mb-2"><strong>Work Email: </strong>{{ company.CompanyEmail }}</li>
-              </ul>
-          </div>
-          <div class="card-body border-top">
-            <h3 class="font-16"><strong>Vehicle Information</strong></h3>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-2"><strong>Make: </strong>{{ vehicle.Make }}</li>
-                <li class="mb-2"><strong>Model: </strong>{{ vehicle.Model }}</li>
-                <li class="mb-2"><strong>Type: </strong>{{ vehicle['Vehicle Type'] }}</li>
-              </ul>
-          </div>
-        </div>
-      </div>
-      <!--Finish profile card
-      Overview tab delete if too much work, just thought it'd look nice-->
-      <div class="col-xl-9 col-lg-9 col-md-7 col-sm-12 col-12">
-        <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="section-block">
-              <h2 class="section-title">Employee Overview</h2>
-              <div class="row mb-3">
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
-                  <button mat-raised-button color="primary" class="w-100" type="button" (click)="calculateTotalPoints()">
-                    Calculate Total Points
-                  </button>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
-                  <button mat-raised-button color="primary" class="w-100" type="button" (click)="calculateTotalMiles()">
-                    Calculate Total  Miles
-                  </button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <h1 class="mb-1">{{ user.TotalPoints }}</h1>
-                      <p>Total Points</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <h1 class="mb-1">{{ user.TotalMiles }}</h1>
-                      <p>Total Miles Traveled</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <h1 class="mb-1">{{ user.CarbonCredits }}</h1>
-                      <p>CO2 Avoided</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> <!--closes overview-->
-          <!--Trips overview + add trips-->
-          <div class="col-xl-9 col-lg-9 col-md-7 col-sm-12 col-12">
+<head>
+    <!-- Liscensed CC BY 3.0 -->
+    <title>Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--=========== Will clean up code later ==========================================================-->
+    <link rel="icon" type="image/png" href="../../images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="../../vendor/bootstrap/css/bootstrap.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="../../fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="../../fonts/iconic/css/material-design-iconic-font.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="../../vendor/animate/animate.css"
+    />
+    <!--===============================================================================================-->
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="../../vendor/css-hamburgers/hamburgers.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="../../vendor/animsition/css/animsition.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="../../vendor/select2/select2.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="../../vendor/daterangepicker/daterangepicker.css"
+    />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../util.css" />
+    <link rel="stylesheet" type="text/css" href="../../app.component.css" />
+    <link rel="stylesheet" type="text/css" href="dashboard.component.css" />
+    <!--===============================================================================================-->
+</head>
+<div class="dashboard-wrapper">
+    <div class="influence-profile">
+        <div class="container-fluid dashboard-content">
+            <!-- pageheader -->
             <div class="row">
-              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="section-block">
-                  <h2 class="section-title">Your Trips</h2>
-                  <button mat-raised-button color="primary" routerLink="/add-trip" style="padding: 10px;">
-                    Add Trip
-                  </button>
-                  <!--recent trips cards
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-header">
+                        <h1 class="mb-2">Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!--card profile-->
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-5 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="text-center">
+                            <h2 class="font-24 mb-0" style="padding: 10px">
+                                {{ user.Firstname }} {{ user.Lastname }}
+                            </h2>
+                        </div>
+                        <div class="card-body border-top">
+                            <h3 class="font-16">
+                                <strong>Contact Information</strong>
+                            </h3>
+                            <div class="">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2">
+                                        <strong>Email: </strong>{{ user.Email }}
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>Phone Number: </strong
+                                        >{{ user.PhoneNumber }}
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>Home Address: </strong
+                                        >{{ user["HomeAddress"] }}
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>Distance to Work: </strong
+                                        >{{ user.DistanceToWork }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body border-top">
+                            <h3 class="font-16">
+                                <strong>Company Information</strong>
+                            </h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2">
+                                    <strong>Company Name: </strong
+                                    >{{ company.CompanyName }}
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Address: </strong
+                                    >{{ company.CompanyAddress }}
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Work Email: </strong
+                                    >{{ company.CompanyEmail }}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body border-top">
+                            <h3 class="font-16">
+                                <strong>Vehicle Information</strong>
+                            </h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2">
+                                    <strong>Make: </strong>{{ vehicle.Make }}
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Model: </strong>{{ vehicle.Model }}
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Type: </strong
+                                    >{{ vehicle["Vehicle Type"] }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Finish profile card
+      Overview tab delete if too much work, just thought it'd look nice-->
+                <div class="col-xl-9 col-lg-9 col-md-7 col-sm-12 col-12">
+                    <div class="row">
+                        <div
+                            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+                        >
+                            <div class="section-block">
+                                <h2 class="section-title">Employee Overview</h2>
+                                <div class="row mb-3">
+                                    <div
+                                        class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2"
+                                    >
+                                        <button
+                                            mat-raised-button
+                                            color="primary"
+                                            class="w-100"
+                                            type="button"
+                                            (click)="calculateTotalPoints()"
+                                        >
+                                            Calculate Total Points
+                                        </button>
+                                    </div>
+                                    <div
+                                        class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2"
+                                    >
+                                        <button
+                                            mat-raised-button
+                                            color="primary"
+                                            class="w-100"
+                                            type="button"
+                                            (click)="calculateTotalMiles()"
+                                        >
+                                            Calculate Total Miles
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div
+                                        class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12"
+                                    >
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h1 class="mb-1">
+                                                    {{ user.TotalPoints }}
+                                                </h1>
+                                                <p>Total Points</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12"
+                                    >
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h1 class="mb-1">
+                                                    {{ user.TotalMiles }}
+                                                </h1>
+                                                <p>Total Miles Traveled</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12"
+                                    >
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h1 class="mb-1">
+                                                    {{ user.CarbonCredits }}
+                                                </h1>
+                                                <p>lbs CO2 Avoided</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--closes overview-->
+                        <!--Trips overview + add trips-->
+                        <div
+                            class="col-xl-9 col-lg-9 col-md-7 col-sm-12 col-12"
+                        >
+                            <div class="row">
+                                <div
+                                    class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+                                >
+                                    <div class="section-block">
+                                        <h2
+                                            class="section-title pt-t-10 pt-b-10"
+                                        >
+                                            Your Trips
+                                        </h2>
+                                        <button
+                                            mat-raised-button
+                                            color="primary"
+                                            routerLink="/add-trip"
+                                            style="padding: 10px"
+                                        >
+                                            Add Trip
+                                        </button>
+                                        <!--recent trips cards
                   just put most recent 3~5 trips?-->
-                  <div *ngIf="trips.length > 0; else noTrips">
-                    <div class="card" *ngFor="let trip of trips">
-                      <div class="card-body">
-                        <div class="row">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="media influencer-profile-data d-flex align-items-center p-2">
-                                    <div class="media-body ">
-                                        <div class="influencer-profile-data">
-                                            <p>
-                                              <span class="m-r-20 d-inline-block">Miles Traveled
-                                                <span class="m-l-10 text-info">{{ trip.distance.$numberDecimal }}</span>
-                                              </span>
-                                              <span class="m-r-20 d-inline-block"> Transport Type
-                                                <span class="m-l-10 text-info">{{ trip.method }}</span>
-                                              </span>
-                                                <span class="m-r-20 d-inline-block">Points Earned 
-                                                  <span class="m-l-10  text-primary">{{ trip.points.$numberDecimal }}</span>
-                                                </span>
-                                                
-                                            </p>
+                                        <div
+                                            *ngIf="
+                                                trips.length > 0;
+                                                else noTrips
+                                            "
+                                        >
+                                            <div
+                                                class="card"
+                                                *ngFor="let trip of trips"
+                                            >
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div
+                                                            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+                                                        >
+                                                            <div
+                                                                class="media influencer-profile-data d-flex align-items-center p-2"
+                                                            >
+                                                                <div
+                                                                    class="media-body"
+                                                                >
+                                                                    <div
+                                                                        class="influencer-profile-data"
+                                                                    >
+                                                                        <p>
+                                                                            <span
+                                                                                class="m-r-20 d-inline-block"
+                                                                                >Miles
+                                                                                Traveled
+                                                                                <span
+                                                                                    class="m-l-10 text-primary"
+                                                                                    >{{
+                                                                                        trip
+                                                                                            .distance
+                                                                                            .$numberDecimal
+                                                                                    }}</span
+                                                                                >
+                                                                            </span>
+                                                                            <span
+                                                                                class="m-r-20 d-inline-block"
+                                                                            >
+                                                                                Transport
+                                                                                Type
+                                                                                <span
+                                                                                    class="m-l-10 text-secondary"
+                                                                                    >{{
+                                                                                        trip.method
+                                                                                    }}</span
+                                                                                >
+                                                                            </span>
+                                                                            <span
+                                                                                class="m-r-20 d-inline-block"
+                                                                                >Points
+                                                                                Earned
+                                                                                <span
+                                                                                    class="m-l-10 text-info"
+                                                                                    >{{
+                                                                                        trip
+                                                                                            .points
+                                                                                            .$numberDecimal
+                                                                                    }}</span
+                                                                                >
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!--closes style-->
-    </div>
-    
 
-    
-    <!---
+                    <!--closes style-->
+                </div>
+
+                <!---
     <div class="dashboard-container" *ngIf="user">
         <mat-card>
           <mat-card-title>User Info</mat-card-title>
@@ -192,12 +338,12 @@
             <p><strong>Home Address:</strong> {{ user['Home Address'] }}</p>
             <p><strong>Distance to Work:</strong> {{ user.DistanceToWork }}</p>
           </mat-card-content>
-        
+
           <button mat-raised-button color="primary" routerLink="/add-trip">
             Add Trip
           </button>
-        </mat-card> 
-      
+        </mat-card>
+
         <mat-card *ngIf="company">
           <mat-card-title>Company Info</mat-card-title>
           <mat-card-content>
@@ -206,7 +352,7 @@
             <p><strong>Email:</strong> {{ company.CompanyEmail }}</p>
           </mat-card-content>
         </mat-card>
-      
+
         <mat-card *ngIf="vehicle">
           <mat-card-title>Vehicle Info</mat-card-title>
           <mat-card-content>
@@ -215,7 +361,10 @@
             <p><strong>Type:</strong> {{ vehicle['Vehicle Type'] }}</p>
           </mat-card-content>
         </mat-card> -->
-      </div>
-      <ng-template #noTrips>
-        <p>No trips recorded yet.</p>
-      </ng-template>
+            </div>
+            <ng-template #noTrips>
+                <p>No trips recorded yet.</p>
+            </ng-template>
+        </div>
+    </div>
+</div>

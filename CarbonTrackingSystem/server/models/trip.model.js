@@ -7,6 +7,7 @@ const tripSchema = new mongoose.Schema({
   method: { type: String, default: '' },
   points: { type: mongoose.Schema.Types.Decimal128, default: 0 },
   isdeleted: { type: Boolean, default: false },
+  Date: {type: Date, required: true},
 },
 
 { collection: 'trips' });

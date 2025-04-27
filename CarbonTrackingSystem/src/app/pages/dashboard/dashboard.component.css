@@ -5,23 +5,23 @@
     max-width: 800px;
     margin: 20px auto;
   }
-  
+
   .company-info, .vehicle-info {
     margin-bottom: 20px;
   }
-  
+
   mat-list-item {
     display: flex;
     justify-content: space-between;
     padding: 5px 0;
   }
-  
+
   .actions {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
   }
-  
+
 
 /**
  * Summary:
@@ -938,89 +938,6 @@ html body .display-7 {
     background-color: transparent;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/* -----------------------
-Left Navigation Sidebar
-------------------------- */
-
-.nav-left-sidebar {
-    position: fixed;
-    width: 264px;
-    height: 100%;
-    top: 60px;
-    overflow: auto;
-    background-color: #fff;
-    -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
-    box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
-    -webkit-transition: all 0.3s ease;
-}
-
-.nav-left-sidebar .nav-link[data-toggle="collapse"] {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.nav-left-sidebar .nav-link[data-toggle="collapse"]::after {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    position: absolute;
-    right: 20px;
-    vertical-align: 0.255em;
-    content: "";
-    border-top: 0.3em solid;
-    border-right: 0.3em solid transparent;
-    border-bottom: 0;
-    border-left: 0.3em solid transparent;
-}
-
-.nav-left-sidebar .nav-link[data-toggle="collapse"][aria-expanded="false"]:after {
-    transform: rotate(-90deg);
-}
-
-.nav-left-sidebar .nav-link[data-toggle="collapse"]:after {
-    transition: transform .35s ease, opacity .35s ease;
-    opacity: .5;
-}
-
-.nav-left-sidebar .navbar-nav {
-    width: 100%;
-}
-
-.nav-left-sidebar .navbar {
-    position: relative;
-    padding: 14px;
-}
-
-.nav-left-sidebar .navbar-nav .nav-item {}
-
-.nav-left-sidebar .navbar-nav .nav-link {
-    font-size: 14px;
-    padding: 12px;
-    /* margin-bottom: 2px; */
-    color: #71789e;
-    transition: 0.3s;
-}
-
-.nav-left-sidebar .nav-link i {
-    font-size: 14px;
-    margin-right: 9px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 16px;
-}
-
 .nav-divider {
     padding: 10px 14px;
     line-height: 30px;
@@ -1259,7 +1176,6 @@ Container / Wrapper
 .dashboard-wrapper {
     position: relative;
     left: 0;
-    margin-left: 264px;
     min-height: 870px !important;
 }
 
