@@ -148,9 +148,9 @@ export class AddTripComponent implements OnInit {
       }
     } else if (method === 'public transit') {
       points = 1.5 * miles;
-    } else if (method === 'walking') {
+    } else if (method === 'walk') {
       points = 3 * miles;
-    } else if (method === 'biking') {
+    } else if (method === 'bike') {
       points = 2.5 * miles;
     } else if (method === 'carpooling') {
       points = 1.5 * miles;
