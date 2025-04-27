@@ -131,31 +131,31 @@ export class AddTripComponent implements OnInit {
     const distance = this.tripForm.get('distance')?.value;
     const vehicle = this.cacheService.getCache('vehicles');
     const vehicleType = vehicle?.VehicleType?.toLowerCase();
-    let points = 0;
+    let rawpoints = 0;
     const miles = parseFloat(distance) || 0;
 
     if (method === 'personal car') {
       switch (vehicleType) {
         case 'gasoline':
-          points = 0.85 * miles;
+          rawpoints = 0.85 * miles;
           break;
         case 'hybrid':
-          points = 1 * miles;
+          rawpoints = 1 * miles;
           break;
         case 'electric':
-          points = 2 * miles;
+          rawpoints = 2 * miles;
           break;
       }
     } else if (method === 'public transit') {
-      points = 1.5 * miles;
+      rawpoints = 1.5 * miles;
     } else if (method === 'walk') {
-      points = 3 * miles;
+      rawpoints = 3 * miles;
     } else if (method === 'bike') {
-      points = 2.5 * miles;
+      rawpoints = 2.5 * miles;
     } else if (method === 'carpooling') {
-      points = 1.5 * miles;
+      rawpoints = 1.5 * miles;
     }
-
+    const points = Math.ceil(rawpoints * 100) / 100;
     this.tripForm.get('points')?.setValue(points, { emitEvent: false });
   }
 
