@@ -59,7 +59,16 @@ export class SignInComponent {
         //console.log('login post cache set', this.cacheService.getCache('trips'));
 
         setTimeout(() => {
-          this.router.navigate(['/dashboard', res.user._id]);
+          //this.router.navigate(['/dashboard', res.user._id]);
+          if (res.user.Role === 'globaladmin') {
+            this.router.navigate(['/admindash']); // Navigate to admin dashboard
+          } else if (res.user.Role === 'user') {
+            this.router.navigate(['/dashboard', res.user._id]); // Navigate to employee dashboard
+          } else if(res.user.Role === 'companyadmin') {
+            this.router.navigate(['/companydash'])
+          }else{
+            this.router.navigate(['/dashboard', res.user._id]); // Default or generic dashboard
+          }
         }, 1);
       },
       error: (err) => {
