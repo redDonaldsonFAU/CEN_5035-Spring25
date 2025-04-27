@@ -1,4 +1,4 @@
-import { NgFor, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,13 +14,11 @@ import { MatButtonModule } from '@angular/material/button';
     selector: 'app-home',
     imports: [
         CommonModule,
-        MatButtonModule,
+        MatButtonModule
         // CarouselComponent,
         // CarouselInnerComponent,
         // CarouselIndicatorsComponent,
         // CarouselItemComponent,
-        NgFor
-        // ThemeDirective
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'

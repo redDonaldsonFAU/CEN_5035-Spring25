@@ -50,6 +50,24 @@ const TripSchema = mongoose.Schema(
             type: Number,
             required: true
         },
+        // accumulated points
+        points_accum: {
+            type: Number,
+            // Initialize points_accum to zero
+            default: 0, 
+            required: true
+        },
+        carbon_creds: {
+            type: Number,
+            required: true
+        },
+        // accumulated carbon credits    
+        carbon_creds_accum: {
+            type: Number,
+            // Initialize carbon_creds_accum to zero
+            default: 0,
+            required: true
+        },
         // email
         Email: {
             type: String,

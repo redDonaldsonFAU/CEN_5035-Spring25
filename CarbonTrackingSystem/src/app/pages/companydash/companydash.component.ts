@@ -1,18 +1,19 @@
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from './dashboard.service';
+import { DashboardService } from '../dashboard/dashboard.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { GettripsService } from './gettrips.service';
+import { GettripsService } from '../dashboard/gettrips.service';
+import { CacheService } from '../../cache.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-companydash',
   imports: [
     CommonModule,
     MatCardModule,
@@ -22,11 +23,11 @@ import { HttpClient } from '@angular/common/http';
     RouterModule,
     NgIf
   ],
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: './companydash.component.html',
+  styleUrl: './companydash.component.scss'
 })
+export class CompanydashComponent {
 
-export class DashboardComponent implements OnInit {
   user: any;
   company: any;
   vehicle: any;
@@ -36,19 +37,23 @@ export class DashboardComponent implements OnInit {
     private dashboardService: DashboardService, 
     private gettripsService: GettripsService, 
     private route: ActivatedRoute,
+    private cacheService: CacheService,
     private http: HttpClient
   ) {}
 
   ngOnInit() {
-    const userId = this.route.snapshot.paramMap.get('id'); // Replace with dynamic value if needed
-    if (userId) {
-        this.dashboardService.getDashboardData(userId).subscribe((data: any) => {
+    //const userId = this.route.snapshot.paramMap.get('id'); // Replace with dynamic value if needed
+    const user = this.cacheService.getCache('user');
+    const employeeID = user?._id;
+    const companyID = user?._companyID;
+    if (employeeID) {
+        this.dashboardService.getDashboardData(employeeID).subscribe((data: any) => {
         this.user = data.user;
         this.company = data.company;
         this.vehicle = data.vehicle;
       });
 
-      this.gettripsService.getTrips({ employeeID: userId }).subscribe({
+      this.gettripsService.getTrips({ companyID: companyID }).subscribe({
           next: (data) => {this.trips = data;
           console.log('trips data:', this.trips);
           },
@@ -58,32 +63,16 @@ export class DashboardComponent implements OnInit {
   }
 
   calculateTotalPoints() {
-    const employeeID = this.user?._id;
-    if (!employeeID) return;
+    const companyId = this.company?._id;
+    if (!companyId) return;
 
-    this.http.post(`/api/calcpoints?employeeID=${employeeID}`, {})
+    this.http.post(`/api/calcpoints?companyID=${companyId}`, {})
       .subscribe({
         next: (res: any) => {
-          this.user.TotalPoints = res.TotalPoints;
-          this.user.CarbonCredits = res.TotalCredits;
+          this.company.TotalPoints = res.TotalPoints;
+          this.company.CarbonCredits = res.TotalCredits;
         },
-        error: (err) => console.error('Recalculation failed:', err)
-      });
-  }
-
-  calculateTotalMiles() {
-    const employeeID = this.user?._id;
-    if (!employeeID) return;
-
-    this.http.post(`/api/calcpoints?employeeID=${employeeID}`, {})
-      .subscribe({
-        next: (res: any) => {
-          this.user.TotalMiles = res.TotalMiles;
-          this.user.CarbonCredits = res.TotalCredits;
-        },
-
-        error: (err) => console.error('Recalculation failed:', err)
+                error: (err) => console.error('Recalculation failed:', err)
       });
   }
 }
-

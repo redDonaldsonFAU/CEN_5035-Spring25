@@ -38,9 +38,7 @@ export class CtsSidenavComponent implements OnInit {
     private cacheService = inject(CacheService);
     private refreshSub!: Subscription;
     user = signal(this.cacheService.getCache('user'));
-    //navItems = signal<NavItem[]>([]);
-    //navItems = signal<NavItem[]>(this.getData('user'));
-    
+   
     ngOnInit(): void {
         // This runs after the component is initialized
         //const cachedUser = this.cacheService.getCache('user');
@@ -74,13 +72,13 @@ export class CtsSidenavComponent implements OnInit {
         icon: 'home', 
         label: 'Home', 
         route: 'home', 
-        visible: ['user', 'companyadmin', 'Admin'] 
+        visible: ['Admin'] 
       },
       {
         icon: 'space_dashboard',
         label: 'Dashboard',
-        route: 'dashboard',
-        visible: ['user']
+        route: `dashboard/${userData._id}`,
+        visible: ['user', 'companyadmin']
       },
       { 
         icon: 'directions_car', 
@@ -89,16 +87,28 @@ export class CtsSidenavComponent implements OnInit {
         visible: ['user', 'companyadmin', 'Admin'] 
       },
       { 
+        icon: 'view_module', 
+        label: 'CompanyDash', 
+        route: 'companydash', 
+        visible: ['companyadmin'] 
+      },
+      { 
         icon: 'compare_arrows', 
         label: 'Trade', 
         route: 'trades', 
-        visible: ['companyadmin', 'Admin'] 
+        visible: ['Admin'] 
+      },
+      { 
+        icon: 'manage_accounts', 
+        label: 'Manage Accounts', 
+        route: 'admindash', 
+        visible: ['globaladmin'] 
       },
       { 
         icon: 'settings', 
         label: 'Settings', 
         route: 'settings', 
-        visible: ['user', 'companyadmin', 'Admin'] 
+        visible: ['Admin'] 
       },
     ].filter(item => item.visible.includes(role));  // Filter based on role
   });
@@ -109,7 +119,11 @@ export class CtsSidenavComponent implements OnInit {
 
     ngOnDestroy(): void {
         // We unsubscribe from the cache and clear the cache data when the component is destroyed.
-        this.refreshSub.unsubscribe();
+        
         this.cacheService.clearAllCache();
+        this.refreshSub = this.cacheService.sidenavRefresh$.subscribe(() => {
+          this.user.set(this.cacheService.getCache('user'));
+        });
+        this.refreshSub.unsubscribe();
     }
 }

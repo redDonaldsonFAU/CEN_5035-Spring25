@@ -7,11 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CacheService } from '../../cache.service';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { HttpService } from '../../http.service';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +24,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
     MatInputModule,
     MatButtonModule,
     FormsModule, 
-    JsonPipe, 
-    RouterOutlet, 
-    RouterLink, 
-    RouterLinkActive
+    RouterLink
   ]
 })
 export class SignInComponent {
@@ -64,7 +59,16 @@ export class SignInComponent {
         //console.log('login post cache set', this.cacheService.getCache('trips'));
 
         setTimeout(() => {
-          this.router.navigate(['/dashboard', res.user._id]);
+          //this.router.navigate(['/dashboard', res.user._id]);
+          if (res.user.Role === 'globaladmin') {
+            this.router.navigate(['/admindash']); // Navigate to admin dashboard
+          } else if (res.user.Role === 'user') {
+            this.router.navigate(['/dashboard', res.user._id]); // Navigate to employee dashboard
+          } else if(res.user.Role === 'companyadmin') {
+            this.router.navigate(['/companydash'])
+          }else{
+            this.router.navigate(['/dashboard', res.user._id]); // Default or generic dashboard
+          }
         }, 1);
       },
       error: (err) => {

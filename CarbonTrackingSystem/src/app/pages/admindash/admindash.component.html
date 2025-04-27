@@ -61,7 +61,7 @@
       <!--===============================================================================================-->
       <link rel="stylesheet" type="text/css" href="../../util.css" />
       <link rel="stylesheet" type="text/css" href="../../app.component.css" />
-      <link rel="stylesheet" type="text/css" href="dashboard.component.css"/>
+      <link rel="stylesheet" type="text/css" href="admindash.component.css"/>
       <!--===============================================================================================-->
   </head>
     <div class="dashboard-wrapper">
@@ -89,25 +89,17 @@
                 <ul class="list-unstyled mb-0">
                   <li class="mb-2"><strong>Email: </strong>{{ user.Email }}</li>
                   <li class="mb-2"><strong>Phone Number: </strong>{{ user.PhoneNumber }}</li>
-                  <li class="mb-2"><strong>Home Address: </strong>{{user['HomeAddress']}}</li>
-                  <li class="mb-2"><strong>Distance to Work: </strong>{{ user.DistanceToWork }}</li>
+
                 </ul>
             </div>
           </div>
           <div class="card-body border-top">
             <h3 class="font-16"><strong>Company Information</strong></h3>
               <ul class="list-unstyled mb-0">
-                <li class="mb-2"><strong>Company Name: </strong>{{ company.CompanyName }}</li>
-                <li class="mb-2"><strong>Address: </strong>{{ company.CompanyAddress }}</li>
-                <li class="mb-2"><strong>Work Email: </strong>{{ company.CompanyEmail }}</li>
-              </ul>
-          </div>
-          <div class="card-body border-top">
-            <h3 class="font-16"><strong>Vehicle Information</strong></h3>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-2"><strong>Make: </strong>{{ vehicle.Make }}</li>
-                <li class="mb-2"><strong>Model: </strong>{{ vehicle.Model }}</li>
-                <li class="mb-2"><strong>Type: </strong>{{ vehicle['Vehicle Type'] }}</li>
+                <li class="mb-2"><strong>Company Name: </strong>{{ user.CompanyName }}</li>
+                <li class="mb-2"><strong>Address: </strong>{{ user.CompanyAddress }}</li>
+
+                
               </ul>
           </div>
         </div>
@@ -118,34 +110,27 @@
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="section-block">
-              <h2 class="section-title">Employee Overview</h2>
+              <h2 class="section-title">Admin Dashboard</h2>
+
               <div class="row mb-3">
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
-                  <button mat-raised-button color="primary" class="w-100" type="button" (click)="calculateTotalPoints()">
-                    Calculate Total Points
+                  <button mat-raised-button color="primary" class="w-100" type="button" (click)="addEmployer()">
+                    Add Company
                   </button>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
-                  <button mat-raised-button color="primary" class="w-100" type="button" (click)="calculateTotalMiles()">
-                    Calculate Total  Miles
+                  <button mat-raised-button color="primary" class="w-100" type="button" (click)="addEmployee()">
+                    Add Employee
                   </button>
                 </div>
               </div>
+              
               <div class="row">
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                   <div class="card">
                     <div class="card-body">
-                      <h1 class="mb-1">{{ user.TotalPoints }}</h1>
-                      <p>Total Points</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                  <div class="card">
-                    <div class="card-body">
                       <h1 class="mb-1">{{ user.TotalMiles }}</h1>
-                      <p>Total Miles Traveled</p>
+                      <p>Total Points Available</p>
                     </div>
                   </div>
                 </div>
@@ -153,7 +138,16 @@
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                   <div class="card">
                     <div class="card-body">
-                      <h1 class="mb-1">{{ user.CarbonCredits }}</h1>
+                      <h1 class="mb-1">{{ user.TotalPoints }}</h1>
+                      <p>Carbon Credits Available</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h1 class="mb-1">600</h1>
                       <p>CO2 Avoided</p>
                     </div>
                   </div>
@@ -166,14 +160,12 @@
             <div class="row">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="section-block">
-                  <h2 class="section-title">Your Trips</h2>
-                  <button mat-raised-button color="primary" routerLink="/add-trip" style="padding: 10px;">
-                    Add Trip
-                  </button>
+                  <h2 class="section-title">Registered Companies</h2>
+                  
                   <!--recent trips cards
                   just put most recent 3~5 trips?-->
-                  <div *ngIf="trips.length > 0; else noTrips">
-                    <div class="card" *ngFor="let trip of trips">
+                  <div *ngIf="companies.length > 0; else noCompanies">
+                    <div class="card" *ngFor="let company of companies">
                       <div class="card-body">
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -181,16 +173,18 @@
                                     <div class="media-body ">
                                         <div class="influencer-profile-data">
                                             <p>
-                                              <span class="m-r-20 d-inline-block">Miles Traveled
-                                                <span class="m-l-10 text-primary">{{ trip.distance.$numberDecimal }}</span>
+                                              <span class="m-r-20 d-inline-block">Company Name
+                                                <span class="m-l-10 text-primary">{{ company.CompanyName }}</span>
                                               </span>
-                                              <span class="m-r-20 d-inline-block"> Transport Type
-                                                <span class="m-l-10 text-secondary">{{ trip.method }}</span>
+                                              <span class="m-r-20 d-inline-block"> Company Email
+                                                <span class="m-l-10 text-secondary">{{ company.CompanyEmail }}</span>
                                               </span>
-                                                <span class="m-r-20 d-inline-block">Points Earned 
-                                                  <span class="m-l-10  text-info">{{ trip.points.$numberDecimal }}</span>
+                                                <span class="m-r-20 d-inline-block">Total Points Earned 
+                                                  <span class="m-l-10  text-info">{{ company.TotalPoints }}</span>
                                                 </span>
-                                                
+                                                <span class="m-r-20 d-inline-block">Carbon Credits Available 
+                                                  <span class="m-l-10  text-info">{{ company.CarbonCredits }}</span>
+                                                </span>
                                             </p>
                                         </div>
                                     </div>
@@ -246,6 +240,6 @@
           </mat-card-content>
         </mat-card> -->
       </div>
-      <ng-template #noTrips>
+      <ng-template #noCompanies>
         <p>No trips recorded yet.</p>
       </ng-template>

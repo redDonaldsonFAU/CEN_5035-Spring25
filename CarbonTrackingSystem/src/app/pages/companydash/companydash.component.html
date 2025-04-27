@@ -61,7 +61,7 @@
       <!--===============================================================================================-->
       <link rel="stylesheet" type="text/css" href="../../util.css" />
       <link rel="stylesheet" type="text/css" href="../../app.component.css" />
-      <link rel="stylesheet" type="text/css" href="dashboard.component.css"/>
+      <link rel="stylesheet" type="text/css" href="companydash.component.css"/>
       <!--===============================================================================================-->
   </head>
     <div class="dashboard-wrapper">
@@ -89,7 +89,7 @@
                 <ul class="list-unstyled mb-0">
                   <li class="mb-2"><strong>Email: </strong>{{ user.Email }}</li>
                   <li class="mb-2"><strong>Phone Number: </strong>{{ user.PhoneNumber }}</li>
-                  <li class="mb-2"><strong>Home Address: </strong>{{user['HomeAddress']}}</li>
+                  <li class="mb-2"><strong>Home Address: </strong>{{user['Home Address']}}</li>
                   <li class="mb-2"><strong>Distance to Work: </strong>{{ user.DistanceToWork }}</li>
                 </ul>
             </div>
@@ -102,14 +102,6 @@
                 <li class="mb-2"><strong>Work Email: </strong>{{ company.CompanyEmail }}</li>
               </ul>
           </div>
-          <div class="card-body border-top">
-            <h3 class="font-16"><strong>Vehicle Information</strong></h3>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-2"><strong>Make: </strong>{{ vehicle.Make }}</li>
-                <li class="mb-2"><strong>Model: </strong>{{ vehicle.Model }}</li>
-                <li class="mb-2"><strong>Type: </strong>{{ vehicle['Vehicle Type'] }}</li>
-              </ul>
-          </div>
         </div>
       </div>
       <!--Finish profile card
@@ -118,7 +110,8 @@
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="section-block">
-              <h2 class="section-title">Employee Overview</h2>
+              <h2 class="section-title">Company Overview</h2>
+
               <div class="row mb-3">
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
                   <button mat-raised-button color="primary" class="w-100" type="button" (click)="calculateTotalPoints()">
@@ -126,17 +119,18 @@
                   </button>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
-                  <button mat-raised-button color="primary" class="w-100" type="button" (click)="calculateTotalMiles()">
-                    Calculate Total  Miles
+                  <button mat-raised-button color="primary" class="w-100" routerLink="/add-trip">
+                    Convert Points
                   </button>
                 </div>
               </div>
+              
               <div class="row">
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                   <div class="card">
                     <div class="card-body">
-                      <h1 class="mb-1">{{ user.TotalPoints }}</h1>
-                      <p>Total Points</p>
+                      <h1 class="mb-1">{{ company.TotalPoints }}</h1>
+                      <p>Total Points Available</p>
                     </div>
                   </div>
                 </div>
@@ -144,8 +138,8 @@
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                   <div class="card">
                     <div class="card-body">
-                      <h1 class="mb-1">{{ user.TotalMiles }}</h1>
-                      <p>Total Miles Traveled</p>
+                      <h1 class="mb-1">{{ company.CarbonCredits }}</h1>
+                      <p>Carbon Credits Available</p>
                     </div>
                   </div>
                 </div>
@@ -153,7 +147,7 @@
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                   <div class="card">
                     <div class="card-body">
-                      <h1 class="mb-1">{{ user.CarbonCredits }}</h1>
+                      <h1 class="mb-1">{{ company.CarbonCredits }}</h1>
                       <p>CO2 Avoided</p>
                     </div>
                   </div>
@@ -166,8 +160,8 @@
             <div class="row">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="section-block">
-                  <h2 class="section-title">Your Trips</h2>
-                  <button mat-raised-button color="primary" routerLink="/add-trip" style="padding: 10px;">
+                  <h2 class="section-title">Total Company Employee's Trips</h2>
+                  <button mat-raised-button color="primary" routerLink="/add-trip">
                     Add Trip
                   </button>
                   <!--recent trips cards
@@ -190,7 +184,9 @@
                                                 <span class="m-r-20 d-inline-block">Points Earned 
                                                   <span class="m-l-10  text-info">{{ trip.points.$numberDecimal }}</span>
                                                 </span>
-                                                
+                                                <span class="m-r-20 d-inline-block">Employee 
+                                                  <span class="m-l-10  text-info">{{ trip._employeeID?.Firstname }} {{ trip._employeeID?.Lastname }}</span>
+                                                </span>
                                             </p>
                                         </div>
                                     </div>

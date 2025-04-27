@@ -1,13 +1,11 @@
-import { Component, inject } from '@angular/core';
-import { HttpService } from '../../http.service';
-import { FormControl, FormGroup, ReactiveFormsModule, FormsModule, NgForm } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [FormsModule, JsonPipe, RouterOutlet, RouterLink, RouterLinkActive],
+    imports: [FormsModule, RouterLink],
     templateUrl: './login.component.html',
     styleUrl: '../../app.component.css'
 })
