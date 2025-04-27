@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
   Role: String,
   TotalMiles: {type: SchemaTypes.Double, default: 0},
   TotalPoints: {type: SchemaTypes.Double, default: 0},
+  CarbonCredits: {type: SchemaTypes.Double, default: 0},
 }, { collection: 'employee' });
 
 module.exports = mongoose.model('Employee', userSchema);

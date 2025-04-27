@@ -68,8 +68,11 @@ export class CompanydashComponent {
 
     this.http.post(`/api/calcpoints?companyID=${companyId}`, {})
       .subscribe({
-        next: (res: any) => this.company.TotalPoints = res.TotalPoints,
-        error: (err) => console.error('Recalculation failed:', err)
+        next: (res: any) => {
+          this.company.TotalPoints = res.TotalPoints;
+          this.company.CarbonCredits = res.TotalCredits;
+        },
+                error: (err) => console.error('Recalculation failed:', err)
       });
   }
 }

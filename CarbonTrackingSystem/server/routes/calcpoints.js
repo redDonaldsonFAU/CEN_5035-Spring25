@@ -30,6 +30,8 @@ router.post('/', async (req, res) => {
     // Round to 2 decimal places
     const totalPoints = Math.ceil(rawPoints * 100) / 100;
     const totalMiles = Math.ceil(rawMiles * 100) / 100;
+    const rawCredits = totalPoints * .001;
+    const totalCredits = Math.ceil(rawCredits * 100) /100;
 
     console.log('Total calculated points:', totalPoints);
     console.log('Total calculated miles:', totalMiles);
@@ -42,6 +44,7 @@ router.post('/', async (req, res) => {
       }
 
       company.TotalPoints = totalPoints;  // Set the TotalPoints field
+      company.CarbonCredits = totalCredits;
       await company.save();  // Save the updated company
 
       console.log('Updated Company:', company);
@@ -56,13 +59,14 @@ router.post('/', async (req, res) => {
 
       employee.TotalPoints = totalPoints;  // Set the TotalPoints field for the employee
       employee.TotalMiles = totalMiles;
+      employee.CarbonCredits = totalCredits;
       await employee.save();  // Save the updated employee
       
       console.log('Updated Employee:', employee);
     }
 
   
-      res.json({ TotalPoints: totalPoints, TotalMiles: totalMiles });
+      res.json({ TotalPoints: totalPoints, TotalMiles: totalMiles, TotalCredits: totalCredits });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
