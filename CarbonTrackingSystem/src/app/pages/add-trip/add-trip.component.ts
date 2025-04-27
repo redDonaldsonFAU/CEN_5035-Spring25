@@ -136,6 +136,8 @@ export class AddTripComponent implements OnInit {
       points = 3 * miles;
     } else if (method === 'biking') {
       points = 2.5 * miles;
+    } else if (method === 'carpooling') {
+      points = 1.5 * miles;
     }
 
     this.tripForm.get('points')?.setValue(points, { emitEvent: false });

@@ -38,9 +38,7 @@ export class CtsSidenavComponent implements OnInit {
     private cacheService = inject(CacheService);
     private refreshSub!: Subscription;
     user = signal(this.cacheService.getCache('user'));
-    //navItems = signal<NavItem[]>([]);
-    //navItems = signal<NavItem[]>(this.getData('user'));
-    
+   
     ngOnInit(): void {
         // This runs after the component is initialized
         //const cachedUser = this.cacheService.getCache('user');
@@ -98,13 +96,19 @@ export class CtsSidenavComponent implements OnInit {
         icon: 'compare_arrows', 
         label: 'Trade', 
         route: 'trades', 
-        visible: ['companyadmin', 'Admin'] 
+        visible: ['Admin'] 
+      },
+      { 
+        icon: 'manage_accounts', 
+        label: 'Manage Accounts', 
+        route: 'admindash', 
+        visible: ['globaladmin'] 
       },
       { 
         icon: 'settings', 
         label: 'Settings', 
         route: 'settings', 
-        visible: ['user', 'companyadmin', 'Admin'] 
+        visible: ['Admin'] 
       },
     ].filter(item => item.visible.includes(role));  // Filter based on role
   });

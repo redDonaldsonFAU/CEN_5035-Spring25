@@ -1,0 +1,12 @@
+#employer {
+    color: white; /* selected option text */
+    background-color: transparent;
+  }
+  
+  /* This changes dropdown list text color in some browsers (not all) */
+  #employer option {
+    color: black;
+    background-color: white; /* optional: light background for better visibility */
+  }
+  
+  
