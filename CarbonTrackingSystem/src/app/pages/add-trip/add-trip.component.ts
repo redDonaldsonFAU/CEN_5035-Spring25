@@ -55,8 +55,8 @@ export class AddTripComponent implements OnInit {
       _employeeID: [employeeID],
       _companyID: [companyID],
       _companyName: [companyName],
-      start:[''],
-      end:[''],
+      start:[user.HomeAddress, Validators.required],
+      end:[user.CompanyAddress, Validators.required],
       method: [''],
       distance: [{ value: '', disabled: true }],
       points: [{ value: '', disabled: true }], // disable so it's not editable by user
@@ -82,6 +82,22 @@ export class AddTripComponent implements OnInit {
 
         this.recalculatePoints();
     }
+  }
+
+  resetAddresses() {
+    const employee = this.cacheService.getCache('user');
+    this.tripForm.patchValue({
+      start: employee.HomeAddress,
+      end: employee.CompanyAddress
+    });
+  }
+
+  swapAddresses() {
+    const employee = this.cacheService.getCache('user');
+    this.tripForm.patchValue({
+      start: employee.CompanyAddress,
+      end: employee.HomeAddress
+    });
   }
 
   
@@ -115,29 +131,31 @@ export class AddTripComponent implements OnInit {
     const distance = this.tripForm.get('distance')?.value;
     const vehicle = this.cacheService.getCache('vehicles');
     const vehicleType = vehicle?.VehicleType?.toLowerCase();
-    let points = 0;
+    let rawpoints = 0;
     const miles = parseFloat(distance) || 0;
 
     if (method === 'personal car') {
       switch (vehicleType) {
         case 'gasoline':
-          points = 0.85 * miles;
+          rawpoints = 0.85 * miles;
           break;
         case 'hybrid':
-          points = 1 * miles;
+          rawpoints = 1 * miles;
           break;
         case 'electric':
-          points = 2 * miles;
+          rawpoints = 2 * miles;
           break;
       }
     } else if (method === 'public transit') {
-      points = 1.5 * miles;
-    } else if (method === 'walking') {
-      points = 3 * miles;
-    } else if (method === 'biking') {
-      points = 2.5 * miles;
+      rawpoints = 1.5 * miles;
+    } else if (method === 'walk') {
+      rawpoints = 3 * miles;
+    } else if (method === 'bike') {
+      rawpoints = 2.5 * miles;
+    } else if (method === 'carpooling') {
+      rawpoints = 1.5 * miles;
     }
-
+    const points = Math.ceil(rawpoints * 100) / 100;
     this.tripForm.get('points')?.setValue(points, { emitEvent: false });
   }
 

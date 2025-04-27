@@ -7,8 +7,9 @@ const companySchema = new mongoose.Schema({
   CompanyName: String,
   CompanyAddress: String,
   CompanyEmail: String,
-  TotalPoints: SchemaTypes.Double,
-  CarbonCredits: SchemaTypes.Double,
+  PhoneNumber: String,
+  TotalPoints: {type: SchemaTypes.Double, default: 0},
+  CarbonCredits: {type: SchemaTypes.Double, default: 0},
 }, { collection: 'company' });
 
 module.exports = mongoose.model('Company', companySchema);

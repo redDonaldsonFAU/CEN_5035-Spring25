@@ -63,7 +63,10 @@ export class DashboardComponent implements OnInit {
 
     this.http.post(`/api/calcpoints?employeeID=${employeeID}`, {})
       .subscribe({
-        next: (res: any) => this.user.TotalPoints = res.TotalPoints,
+        next: (res: any) => {
+          this.user.TotalPoints = res.TotalPoints;
+          this.user.CarbonCredits = res.TotalCredits;
+        },
         error: (err) => console.error('Recalculation failed:', err)
       });
   }
@@ -74,7 +77,11 @@ export class DashboardComponent implements OnInit {
 
     this.http.post(`/api/calcpoints?employeeID=${employeeID}`, {})
       .subscribe({
-        next: (res: any) => this.user.TotalMiles = res.TotalMiles,
+        next: (res: any) => {
+          this.user.TotalMiles = res.TotalMiles;
+          this.user.CarbonCredits = res.TotalCredits;
+        },
+
         error: (err) => console.error('Recalculation failed:', err)
       });
   }

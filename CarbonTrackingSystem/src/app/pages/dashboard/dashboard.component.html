@@ -96,7 +96,7 @@
                                     </li>
                                     <li class="mb-2">
                                         <strong>Home Address: </strong
-                                        >{{ user["Home Address"] }}
+                                        >{{ user["HomeAddress"] }}
                                     </li>
                                     <li class="mb-2">
                                         <strong>Distance to Work: </strong
@@ -212,7 +212,9 @@
                                     >
                                         <div class="card">
                                             <div class="card-body">
-                                                <h1 class="mb-1">600</h1>
+                                                <h1 class="mb-1">
+                                                    {{ user.CarbonCredits }}
+                                                </h1>
                                                 <p>lbs CO2 Avoided</p>
                                             </div>
                                         </div>
@@ -239,6 +241,7 @@
                                             mat-raised-button
                                             color="primary"
                                             routerLink="/add-trip"
+                                            style="padding: 10px"
                                         >
                                             Add Trip
                                         </button>

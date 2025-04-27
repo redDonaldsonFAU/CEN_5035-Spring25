@@ -9,6 +9,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SignInComponent } from './pages/signin/signin.component';
 import { AddTripComponent } from './pages/add-trip/add-trip.component';
 import { CompanydashComponent } from './pages/companydash/companydash.component';
+import { AdmindashComponent } from './pages/admindash/admindash.component';
+import { AddEmployerComponent } from './pages/add-employer/add-employer.component';
+import { AddEmployeeComponent } from './pages/add-employee/add-employee.component';
 import { AuthGuard } from './auth.guard';
 import { LayoutComponent } from './layout/layout.component';
 
@@ -51,7 +54,14 @@ export const routes: Routes = [
         path: 'add-trip', 
         component: AddTripComponent 
     },
-        
+    { 
+        path: 'add-company', 
+        component: AddEmployerComponent 
+    },
+    { 
+        path: 'add-employee', 
+        component: AddEmployeeComponent 
+    },   
     {         
         canActivate: [AuthGuard],
         path: 'dashboard/:id',
@@ -62,6 +72,12 @@ export const routes: Routes = [
         path: 'companydash',
         component: CompanydashComponent
     },
+    {
+        path: 'admindash',
+        component: AdmindashComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['globaladmin'] }  // assuming 'Admin' is your global admin role
+    }
     
 ];
 
