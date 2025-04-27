@@ -55,8 +55,8 @@ export class AddTripComponent implements OnInit {
       _employeeID: [employeeID],
       _companyID: [companyID],
       _companyName: [companyName],
-      start:[''],
-      end:[''],
+      start:[user.HomeAddress, Validators.required],
+      end:[user.CompanyAddress, Validators.required],
       method: [''],
       distance: [{ value: '', disabled: true }],
       points: [{ value: '', disabled: true }], // disable so it's not editable by user
@@ -82,6 +82,22 @@ export class AddTripComponent implements OnInit {
 
         this.recalculatePoints();
     }
+  }
+
+  resetAddresses() {
+    const employee = this.cacheService.getCache('user');
+    this.tripForm.patchValue({
+      start: employee.HomeAddress,
+      end: employee.CompanyAddress
+    });
+  }
+
+  swapAddresses() {
+    const employee = this.cacheService.getCache('user');
+    this.tripForm.patchValue({
+      start: employee.CompanyAddress,
+      end: employee.HomeAddress
+    });
   }
 
   
