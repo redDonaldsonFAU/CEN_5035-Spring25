@@ -11,6 +11,14 @@
           <input matInput formControlName="_companyName" readonly>
         </mat-form-field>
 
+
+        <mat-form-field appearance="fill">
+          <mat-label>Trip Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="Date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        
         <mat-form-field>
           <mat-label>Starting Address</mat-label>
           <input matInput formControlName="start">

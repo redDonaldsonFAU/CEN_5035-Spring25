@@ -11,6 +11,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'
 import { CacheService } from '../../cache.service';
 import { GoogleDistanceService } from './googledistanceservice';
 
@@ -26,6 +28,8 @@ import { GoogleDistanceService } from './googledistanceservice';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
     RouterModule
   ],
@@ -55,6 +59,7 @@ export class AddTripComponent implements OnInit {
       _employeeID: [employeeID],
       _companyID: [companyID],
       _companyName: [companyName],
+      Date: [new Date(), Validators.required],
       start:[user.HomeAddress, Validators.required],
       end:[user.CompanyAddress, Validators.required],
       method: [''],
@@ -108,7 +113,7 @@ export class AddTripComponent implements OnInit {
     const user = this.cacheService.getCache('user');
     const employeeID = user?._id;
     const companyID = user?._companyID;
-    
+   
     const tripData = {
       
       _employeeID: employeeID, 
@@ -116,8 +121,9 @@ export class AddTripComponent implements OnInit {
       distance: parseFloat(distance),
       method,
       points, 
-      isdeleted: false
-    };
+      isdeleted: false,
+      Date: new Date(this.tripForm.value.Date).toISOString(), 
+      };
 
     //const form = this.tripForm.getRawValue(); // get values including disabled ones
     this.http.post('/api/trip', tripData).subscribe({
