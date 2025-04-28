@@ -5,7 +5,7 @@ const Company = require('../models/company.model');
 router.get('/', async (req, res) => {
     
     try {
-        const companies = await Company.find();
+        const companies = await Company.find().sort({ TotalPoints: -1 });
         res.json(companies);
       } catch (err) {
         console.error(err);
