@@ -1,7 +1,11 @@
-<mat-card class="padding">
-    <h2>Add a New Trip</h2>
-    <form [formGroup]="tripForm" (ngSubmit)="submitTrip()" class="form">
-        <!-- <mat-form-field>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Add a New Trip</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <form [formGroup]="tripForm" (ngSubmit)="submitTrip()" class="form">
+            <!-- <mat-form-field>
             <mat-label>Employee ID</mat-label>
             <input matInput formControlName="_employeeID" readonly>
           </mat-form-field>
@@ -11,79 +15,88 @@
             <input matInput formControlName="_companyName" readonly>
           </mat-form-field> -->
 
-        <mat-form-field appearance="fill">
-            <mat-label>Trip Date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="Date" />
-            <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <mat-divider></mat-divider>
-        <mat-form-field>
-            <mat-label>Starting Address</mat-label>
-            <input matInput formControlName="start" />
-        </mat-form-field>
-        <mat-divider></mat-divider>
+            <mat-form-field
+                appearance="fill"
+                style="padding-top: 0.5rem; width: 100%"
+            >
+                <mat-label>Trip Date</mat-label>
+                <input
+                    matInput
+                    [matDatepicker]="picker"
+                    formControlName="Date"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>End Address</mat-label>
-            <input matInput formControlName="end" />
-        </mat-form-field>
-        <mat-divider></mat-divider>
+            <mat-form-field style="width: 100%">
+                <mat-label>Starting Address</mat-label>
+                <input matInput formControlName="start" />
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+                <mat-label>End Address</mat-label>
+                <input matInput formControlName="end" />
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+                <mat-label>Distance</mat-label>
+                <input matInput formControlName="distance" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Travel Method</mat-label>
+                <mat-select formControlName="method">
+                    <mat-option value="personal car">Personal Car</mat-option>
+                    <mat-option value="public transit"
+                        >Public Transit</mat-option
+                    >
+                    <mat-option value="bike">Bike</mat-option>
+                    <mat-option value="walk">Walk</mat-option>
+                    <mat-option value="carpooling">Car Pooling</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="width: 100%">
+                <mat-label>Points</mat-label>
+                <input matInput formControlName="points" readonly />
+            </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Distance</mat-label>
-            <input matInput formControlName="distance" readonly />
-        </mat-form-field>
-        <mat-divider></mat-divider>
+            <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="onCalculateDistance()"
+                style="margin-right: 0.5rem"
+            >
+                Calculate Distance
+            </button>
+            <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="resetAddresses()"
+                style="margin-right: 0.5rem"
+            >
+                Reset Address to Home/Work
+            </button>
+            <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="swapAddresses()"
+                style="margin-right: 0.5rem"
+            >
+                Swap Address to Home/Work
+            </button>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Travel Method</mat-label>
-            <mat-select formControlName="method">
-                <mat-option value="personal car">Personal Car</mat-option>
-                <mat-option value="public transit">Public Transit</mat-option>
-                <mat-option value="bike">Bike</mat-option>
-                <mat-option value="walk">Walk</mat-option>
-                <mat-option value="carpooling">Car Pooling</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-divider></mat-divider>
-
-        <mat-form-field>
-            <mat-label>Points</mat-label>
-            <input matInput formControlName="points" readonly />
-        </mat-form-field>
-        <mat-divider></mat-divider>
-
-        <button
-            mat-raised-button
-            color="primary"
-            type="button"
-            (click)="onCalculateDistance()"
-        >
-            Calculate Distance
-        </button>
-        <button
-            mat-raised-button
-            color="primary"
-            type="button"
-            (click)="resetAddresses()"
-        >
-            Reset Address to Home/Work
-        </button>
-        <button
-            mat-raised-button
-            color="primary"
-            type="button"
-            (click)="swapAddresses()"
-        >
-            Swap Address to Home/Work
-        </button>
-
-        <button mat-raised-button color="primary" type="submit">
-            Submit Trip
-        </button>
-    </form>
+            <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                style="margin-right: 0.5rem"
+            >
+                Submit Trip
+            </button>
+        </form>
+    </mat-card-content>
 </mat-card>
