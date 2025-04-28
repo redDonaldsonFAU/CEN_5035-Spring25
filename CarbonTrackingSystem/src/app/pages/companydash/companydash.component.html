@@ -71,7 +71,7 @@
               <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                       <div class="page-header">
-                          <h1 class="mb-2">Dashboard</h1>
+                          <h1 class="mb-2">Company Dashboard</h1>
                       </div>
                   </div>
               </div>
@@ -161,9 +161,9 @@
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="section-block">
                   <h2 class="section-title">Total Company Employee's Trips</h2>
-                  <button mat-raised-button color="primary" routerLink="/add-trip">
+                  <!--<button mat-raised-button color="primary" style="margin: 10px;" routerLink="/add-trip">
                     Add Trip
-                  </button>
+                  </button>-->
                   <!--recent trips cards
                   just put most recent 3~5 trips?-->
                   <div *ngIf="trips.length > 0; else noTrips">
@@ -190,6 +190,9 @@
                                                 <span class="m-r-20 d-inline-block">Employee 
                                                   <span class="m-l-10  text-info">{{ trip._employeeID?.Firstname }} {{ trip._employeeID?.Lastname }}</span>
                                                 </span>
+                                                <button mat-button color="red" (click)="deleteTrip(trip._id)" style="margin-left: 20px;">
+                                                   Delete
+                                                </button>
                                             </p>
                                         </div>
                                     </div>

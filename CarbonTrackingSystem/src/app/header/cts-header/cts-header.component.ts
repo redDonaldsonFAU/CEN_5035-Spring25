@@ -20,6 +20,7 @@ import { CtsSidenavComponent } from '../cts-sidenav/cts-sidenav.component';
 import { CacheService } from '../../cache.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { SidenavService } from '../cts-sidenav/sidenav.service';
 
 @Component({
     selector: 'app-cts-header',
@@ -35,7 +36,8 @@ import { Router } from '@angular/router';
 })
 export class CtsHeaderComponent {
     private cacheService = inject(CacheService);
-    constructor(private router: Router) {}
+    
+    constructor(private router: Router, private sidenavService: SidenavService) {}
     loginRoute = 'signin';
     readonly dialog = inject(MatDialog);
     showSideMenu = signal(false);
@@ -44,11 +46,13 @@ export class CtsHeaderComponent {
 
     openDialog() {
         this.dialog.open(Dialog);
-        this.cacheService.deleteCache('user'); // clear both in-memory and local storage
+        //this.cacheService.deleteCache('user'); // clear both in-memory and local storage
+        //this.sidenavService.refresh();
     }
     logout(): void {
         
         this.cacheService.clearAllCache(); // clear both in-memory and local storage
+        
         this.router.navigate(['/signin']); // redirect to login
     }
 }

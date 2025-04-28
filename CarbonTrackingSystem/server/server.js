@@ -18,6 +18,7 @@ const getcompanyRoute = require('./routes/getcompany');
 const addcompanyRoute = require('./routes/addcompany');
 const addemployeeRoute = require('./routes/addemployee');
 const getvehiclesRoute = require('./routes/getvehicles');
+const deletetripRoute = require('./routes/deletetrip');
 
 mongoose.connect(mongoUri)
   .then(() => console.log('Connected to MongoDB'))
@@ -48,6 +49,7 @@ app.use('/api/getvehicles', getvehiclesRoute);
 app.use('/api/calcpoints', calcpointsRoute); //API Endpoint to calculate points based on trips
 app.use('/api/addcompany', addcompanyRoute);
 app.use('/api/addemployee', addemployeeRoute);
+app.use('/api/deletetrip', deletetripRoute);
 
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);

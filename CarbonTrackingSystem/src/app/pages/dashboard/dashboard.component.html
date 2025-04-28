@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h1 class="mb-2">Dashboard</h1>
+                        <h1 class="mb-2">Employee Dashboard</h1>
                     </div>
                 </div>
             </div>
@@ -290,6 +290,14 @@
                                                                                     }}</span
                                                                                 >
                                                                             </span>
+                                                                            <button 
+                                                                                mat-button
+                                                                                color="red"
+                                                                                (click)="deleteTrip(trip._id)"
+                                                                                style="margin-left: 20px;"
+                                                                            >
+                                                                                Delete
+                                                                            </button>
                                                                         </p>
                                                                     </div>
                                                                 </div>

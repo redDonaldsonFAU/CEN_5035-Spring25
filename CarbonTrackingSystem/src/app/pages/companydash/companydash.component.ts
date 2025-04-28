@@ -42,7 +42,6 @@ export class CompanydashComponent {
   ) {}
 
   ngOnInit() {
-    //const userId = this.route.snapshot.paramMap.get('id'); // Replace with dynamic value if needed
     const user = this.cacheService.getCache('user');
     const employeeID = user?._id;
     const companyID = user?._companyID;
@@ -51,10 +50,12 @@ export class CompanydashComponent {
         this.user = data.user;
         this.company = data.company;
         this.vehicle = data.vehicle;
+        this.calculateTotalPoints(); 
       });
 
       this.gettripsService.getTrips({ companyID: companyID }).subscribe({
           next: (data) => {this.trips = data;
+            this.calculateTotalPoints(); 
           console.log('trips data:', this.trips);
           },
           error: (err) => console.error('Failed to load trips:', err)
@@ -74,5 +75,21 @@ export class CompanydashComponent {
         },
                 error: (err) => console.error('Recalculation failed:', err)
       });
+  }
+
+  deleteTrip(tripId: string) {
+    if (confirm('Are you sure you want to delete this trip?')) {
+      this.http.post('/api/deletetrip', { tripId }).subscribe({
+        next: () => {
+          alert('Trip deleted successfully');
+          this.ngOnInit();
+          this.calculateTotalPoints(); 
+        },
+        error: (err) => {
+          console.error('Error deleting trip', err);
+          alert('Failed to delete trip.');
+        }
+      });
+    }
   }
 }

@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { SidenavService } from '../../header/cts-sidenav/sidenav.service';
 
 @Component({
   selector: 'app-login',
@@ -34,12 +35,17 @@ export class SignInComponent {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private cacheService: CacheService
+    private cacheService: CacheService,
+    private sidenavService: SidenavService,
   ) {
     this.loginForm = this.fb.group({
       email: [''],
       password: ['']
     });
+  }
+
+  ngOnInit() {
+    this.sidenavService.refresh();
   }
 
   onLogin() {
@@ -54,9 +60,7 @@ export class SignInComponent {
         this.cacheService.setCache('vehicles', res.vehicles);
         this.cacheService.setCache('trips', res.trips);
         console.log('login post cache set', this.cacheService.getCache('user')); //check cache variable
-        //console.log('login post cache set', this.cacheService.getCache('company'));
-        //console.log('login post cache set', this.cacheService.getCache('vehicles'));
-        //console.log('login post cache set', this.cacheService.getCache('trips'));
+        this.sidenavService.refresh();
 
         setTimeout(() => {
           //this.router.navigate(['/dashboard', res.user._id]);

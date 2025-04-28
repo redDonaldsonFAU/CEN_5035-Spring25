@@ -46,15 +46,20 @@ export class DashboardComponent implements OnInit {
         this.user = data.user;
         this.company = data.company;
         this.vehicle = data.vehicle;
+        this.calculateTotalMiles();
+        this.calculateTotalPoints();
       });
 
       this.gettripsService.getTrips({ employeeID: userId }).subscribe({
           next: (data) => {this.trips = data;
+            this.calculateTotalMiles();
+            this.calculateTotalPoints();
           console.log('trips data:', this.trips);
           },
           error: (err) => console.error('Failed to load trips:', err)
         });
     }
+    
   }
 
   calculateTotalPoints() {
@@ -84,6 +89,23 @@ export class DashboardComponent implements OnInit {
 
         error: (err) => console.error('Recalculation failed:', err)
       });
+  }
+  
+  deleteTrip(tripId: string) {
+    if (confirm('Are you sure you want to delete this trip?')) {
+      this.http.post('/api/deletetrip', { tripId }).subscribe({
+        next: () => {
+          alert('Trip deleted successfully');
+          this.ngOnInit();
+          this.calculateTotalMiles();
+          this.calculateTotalPoints(); 
+        },
+        error: (err) => {
+          console.error('Error deleting trip', err);
+          alert('Failed to delete trip.');
+        }
+      });
+    }
   }
 }
 
