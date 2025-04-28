@@ -138,7 +138,13 @@ export class AddTripComponent implements OnInit {
     const vehicle = this.cacheService.getCache('vehicles');
     const vehicleType = vehicle?.VehicleType?.toLowerCase();
     let rawpoints = 0;
-    const miles = parseFloat(distance) || 0;
+
+    const cleaned = distance.replace(/,/g, '').replace(/[^\d.]/g, '');
+    //const miles = parseFloat(cleaned);
+
+    const miles = parseFloat(cleaned) || 0;
+
+    console.log ('initial miles from form', miles);
 
     if (method === 'personal car') {
       switch (vehicleType) {
@@ -161,6 +167,8 @@ export class AddTripComponent implements OnInit {
     } else if (method === 'carpooling') {
       rawpoints = 1.5 * miles;
     }
+
+    console.log ('raw poitns', rawpoints);
     const points = Math.ceil(rawpoints * 100) / 100;
     this.tripForm.get('points')?.setValue(points, { emitEvent: false });
   }
