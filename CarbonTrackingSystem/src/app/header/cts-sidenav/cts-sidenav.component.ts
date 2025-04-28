@@ -1,4 +1,12 @@
-import { Component, Input, signal, inject, OnInit, computed } from '@angular/core';
+import {
+    Component,
+    Input,
+    signal,
+    inject,
+    OnInit,
+    computed,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,10 +33,11 @@ export type NavItem = {
         MatButtonModule,
         MatSidenavModule,
         MatListModule,
-        MatIconModule,
+        MatIconModule
     ],
     templateUrl: './cts-sidenav.component.html',
     styleUrl: './cts-sidenav.component.css',
+    changeDetection: ChangeDetectionStrategy.Default
     //providers: [CacheService]
 })
 export class CtsSidenavComponent implements OnInit {
@@ -38,91 +47,87 @@ export class CtsSidenavComponent implements OnInit {
     private cacheService = inject(CacheService);
     private refreshSub!: Subscription;
     user = signal(this.cacheService.getCache('user'));
-   
+
     ngOnInit(): void {
         // This runs after the component is initialized
         //const cachedUser = this.cacheService.getCache('user');
-    
-        //if (cachedUser) {
-         // this.navItems.set(this.getData(cachedUser.Role));
-                 //}
-                 //this.refreshUserCache();
-                 this.refreshSub = this.cacheService.sidenavRefresh$.subscribe(() => {
-                  this.user.set(this.cacheService.getCache('user'));
-                });
-      }
 
-      refreshUserCache() {
+        //if (cachedUser) {
+        // this.navItems.set(this.getData(cachedUser.Role));
+        //}
+        //this.refreshUserCache();
+        this.refreshSub = this.cacheService.sidenavRefresh$.subscribe(() => {
+            this.user.set(this.cacheService.getCache('user'));
+        });
+    }
+
+    refreshUserCache() {
         // If cache is not updated, refresh the signal
         const userData = this.cacheService.getCache('user');
         if (userData) {
-          this.user.set(userData);  // Manually set user data in signal
+            this.user.set(userData); // Manually set user data in signal
         } else {
-          console.log('User data not found in cache');
+            console.log('User data not found in cache');
         }
-      }
+    }
 
-      navItems = computed(() => {
+    navItems = computed(() => {
         const userData = this.user();
-        if (!userData) return [];  // Return empty if no user data
+        if (!userData) return []; // Return empty if no user data
 
         const role = userData.Role;
-    return [
-      { 
-        icon: 'home', 
-        label: 'Home', 
-        route: 'home', 
-        visible: ['Admin'] 
-      },
-      {
-        icon: 'space_dashboard',
-        label: 'Dashboard',
-        route: `dashboard/${userData._id}`,
-        visible: ['user', 'companyadmin']
-      },
-      { 
-        icon: 'directions_car', 
-        label: 'Trip', 
-        route: 'add-trip', 
-        visible: ['user', 'companyadmin', 'Admin'] 
-      },
-      { 
-        icon: 'view_module', 
-        label: 'CompanyDash', 
-        route: 'companydash', 
-        visible: ['companyadmin'] 
-      },
-      { 
-        icon: 'compare_arrows', 
-        label: 'Trade', 
-        route: 'trades', 
-        visible: ['Admin'] 
-      },
-      { 
-        icon: 'manage_accounts', 
-        label: 'Manage Accounts', 
-        route: 'admindash', 
-        visible: ['globaladmin'] 
-      },
-      { 
-        icon: 'settings', 
-        label: 'Settings', 
-        route: 'settings', 
-        visible: ['Admin'] 
-      },
-    ].filter(item => item.visible.includes(role));  // Filter based on role
-  });
-
-
-
-    
+        return [
+            {
+                icon: 'home',
+                label: 'Home',
+                route: 'home',
+                visible: ['Admin']
+            },
+            {
+                icon: 'space_dashboard',
+                label: 'Dashboard',
+                route: `dashboard/${userData._id}`,
+                visible: ['user', 'companyadmin']
+            },
+            {
+                icon: 'directions_car',
+                label: 'Trip',
+                route: 'add-trip',
+                visible: ['user', 'companyadmin', 'Admin']
+            },
+            {
+                icon: 'view_module',
+                label: 'CompanyDash',
+                route: 'companydash',
+                visible: ['companyadmin']
+            },
+            {
+                icon: 'compare_arrows',
+                label: 'Trade',
+                route: 'trades',
+                visible: ['Admin']
+            },
+            {
+                icon: 'manage_accounts',
+                label: 'Manage Accounts',
+                route: 'admindash',
+                visible: ['globaladmin']
+            },
+            {
+                icon: 'settings',
+                label: 'Settings',
+                route: 'settings',
+                visible: ['Admin']
+            }
+        ].filter((item) => item.visible.includes(role)); // Filter based on role
+    });
 
     ngOnDestroy(): void {
         // We unsubscribe from the cache and clear the cache data when the component is destroyed.
-        
+
         this.cacheService.clearAllCache();
         this.refreshSub = this.cacheService.sidenavRefresh$.subscribe(() => {
-          this.user.set(this.cacheService.getCache('user'));
+            this.user.set(this.cacheService.getCache('user'));
         });
         this.refreshSub.unsubscribe();
     }
