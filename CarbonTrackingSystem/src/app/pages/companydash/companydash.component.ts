@@ -13,83 +13,99 @@ import { CacheService } from '../../cache.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-companydash',
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatListModule,
-    MatButtonModule,
-    MatDividerModule,
-    RouterModule,
-    NgIf
-  ],
-  templateUrl: './companydash.component.html',
-  styleUrl: './companydash.component.scss'
+    selector: 'app-companydash',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatListModule,
+        MatButtonModule,
+        MatDividerModule,
+        RouterModule,
+        NgIf
+    ],
+    templateUrl: './companydash.component.html',
+    styleUrl: './companydash.component.scss'
 })
 export class CompanydashComponent {
+    user: any;
+    company: any;
+    vehicle: any;
+    trips: any[] = [];
 
-  user: any;
-  company: any;
-  vehicle: any;
-  trips: any[] = [];
+    constructor(
+        private dashboardService: DashboardService,
+        private gettripsService: GettripsService,
+        private route: ActivatedRoute,
+        private cacheService: CacheService,
+        private http: HttpClient
+    ) {}
 
-  constructor(
-    private dashboardService: DashboardService, 
-    private gettripsService: GettripsService, 
-    private route: ActivatedRoute,
-    private cacheService: CacheService,
-    private http: HttpClient
-  ) {}
+    ngOnInit() {
+        const user = this.cacheService.getCache('user');
+        const employeeID = user?._id;
+        const companyID = user?._companyID;
+        if (employeeID) {
+            this.dashboardService
+                .getDashboardData(employeeID)
+                .subscribe((data: any) => {
+                    this.user = data.user;
+                    this.company = data.company;
+                    this.vehicle = data.vehicle;
+                    this.calculateTotalPoints();
+                });
 
-  ngOnInit() {
-    const user = this.cacheService.getCache('user');
-    const employeeID = user?._id;
-    const companyID = user?._companyID;
-    if (employeeID) {
-        this.dashboardService.getDashboardData(employeeID).subscribe((data: any) => {
-        this.user = data.user;
-        this.company = data.company;
-        this.vehicle = data.vehicle;
-        this.calculateTotalPoints(); 
-      });
+            this.gettripsService.getTrips({ companyID: companyID }).subscribe({
+                next: (data) => {
+                    this.trips = data;
+                    this.calculateTotalPoints();
+                    console.log('trips data:', this.trips);
+                },
+                error: (err) => console.error('Failed to load trips:', err)
+            });
+        }
+    }
 
-      this.gettripsService.getTrips({ companyID: companyID }).subscribe({
-          next: (data) => {this.trips = data;
-            this.calculateTotalPoints(); 
-          console.log('trips data:', this.trips);
-          },
-          error: (err) => console.error('Failed to load trips:', err)
+    formatDate(tripDate: string) {
+        const d = new Date(tripDate);
+        const options: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            second: '2-digit'
+        };
+        const retVal: string = d.toLocaleString(undefined, options);
+        console.log(`:RED: ${retVal}`);
+        return retVal;
+    }
+
+    calculateTotalPoints() {
+        const companyId = this.company?._id;
+        if (!companyId) return;
+
+        this.http.post(`/api/calcpoints?companyID=${companyId}`, {}).subscribe({
+            next: (res: any) => {
+                this.company.TotalPoints = res.TotalPoints;
+                this.company.CarbonCredits = res.TotalCredits;
+            },
+            error: (err) => console.error('Recalculation failed:', err)
         });
     }
-  }
 
-  calculateTotalPoints() {
-    const companyId = this.company?._id;
-    if (!companyId) return;
-
-    this.http.post(`/api/calcpoints?companyID=${companyId}`, {})
-      .subscribe({
-        next: (res: any) => {
-          this.company.TotalPoints = res.TotalPoints;
-          this.company.CarbonCredits = res.TotalCredits;
-        },
-                error: (err) => console.error('Recalculation failed:', err)
-      });
-  }
-
-  deleteTrip(tripId: string) {
-    if (confirm('Are you sure you want to delete this trip?')) {
-      this.http.post('/api/deletetrip', { tripId }).subscribe({
-        next: () => {
-          alert('Trip deleted successfully');
-          this.ngOnInit();
-          this.calculateTotalPoints(); 
-        },
-        error: (err) => {
-          console.error('Error deleting trip', err);
-          alert('Failed to delete trip.');
+    deleteTrip(tripId: string) {
+        if (confirm('Are you sure you want to delete this trip?')) {
+            this.http.post('/api/deletetrip', { tripId }).subscribe({
+                next: () => {
+                    alert('Trip deleted successfully');
+                    this.ngOnInit();
+                    this.calculateTotalPoints();
+                },
+                error: (err) => {
+                    console.error('Error deleting trip', err);
+                    alert('Failed to delete trip.');
+                }
+            });
         }
-      });
     }
-  }
 }

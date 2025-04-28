@@ -211,7 +211,7 @@
                                             mat-raised-button
                                             color="primary"
                                             routerLink="/add-trip"
-                                            style="margin: 10px;"
+                                            style="margin: 10px"
                                         >
                                             Add Trip
                                         </button>
@@ -248,7 +248,9 @@
                                                                                 <span
                                                                                     class="m-l-10 text-primary"
                                                                                     >{{
-                                                                                        trip.Date
+                                                                                        formatDate(
+                                                                                            trip.Date
+                                                                                        )
                                                                                     }}</span
                                                                                 >
                                                                             </span>
@@ -290,11 +292,17 @@
                                                                                     }}</span
                                                                                 >
                                                                             </span>
-                                                                            <button 
+                                                                            <button
                                                                                 mat-button
                                                                                 color="red"
-                                                                                (click)="deleteTrip(trip._id)"
-                                                                                style="margin-left: 20px;"
+                                                                                (click)="
+                                                                                    deleteTrip(
+                                                                                        trip._id
+                                                                                    )
+                                                                                "
+                                                                                style="
+                                                                                    margin-left: 20px;
+                                                                                "
                                                                             >
                                                                                 Delete
                                                                             </button>
