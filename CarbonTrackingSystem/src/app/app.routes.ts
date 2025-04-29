@@ -12,6 +12,7 @@ import { CompanydashComponent } from './pages/companydash/companydash.component'
 import { AdmindashComponent } from './pages/admindash/admindash.component';
 import { AddEmployerComponent } from './pages/add-employer/add-employer.component';
 import { AddEmployeeComponent } from './pages/add-employee/add-employee.component';
+import { EmployeeListComponent } from './pages/employeelist/employeelist.component';
 import { AuthGuard } from './auth.guard';
 import { LayoutComponent } from './layout/layout.component';
 
@@ -71,6 +72,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         path: 'companydash',
         component: CompanydashComponent
+    },
+    {         
+        canActivate: [AuthGuard],
+        path: 'employeelist',
+        component: EmployeeListComponent
     },
     {
         path: 'admindash',

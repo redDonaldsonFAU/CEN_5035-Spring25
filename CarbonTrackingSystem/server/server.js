@@ -15,6 +15,7 @@ const distanceRoute = require('./routes/calcdistance');
 const gettripsRoute = require('./routes/gettrips');
 const calcpointsRoute = require('./routes/calcpoints');
 const getcompanyRoute = require('./routes/getcompany');
+const getemployeesRoute = require('./routes/getemployees');
 const addcompanyRoute = require('./routes/addcompany');
 const addemployeeRoute = require('./routes/addemployee');
 const getvehiclesRoute = require('./routes/getvehicles');
@@ -45,6 +46,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/distance', distanceRoute); // API Endpoint to calculate distance
 app.use('/api/gettrips', gettripsRoute); // API Endpoint to get all trips from MongoDB
 app.use('/api/getcompany', getcompanyRoute); //API Endpoint to get companies from MongoDB
+app.use('/api/getemployees', getemployeesRoute); //API Endpoint to get employees from MongoDB
 app.use('/api/getvehicles', getvehiclesRoute);
 app.use('/api/calcpoints', calcpointsRoute); //API Endpoint to calculate points based on trips
 app.use('/api/addcompany', addcompanyRoute);

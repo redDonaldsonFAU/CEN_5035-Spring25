@@ -114,17 +114,24 @@ export class CtsSidenavComponent implements OnInit {
                 visible: ['user', 'companyadmin']
             },
             {
-                icon: 'directions_car',
-                label: 'Trip',
-                route: 'add-trip',
-                visible: ['user', 'companyadmin', 'Admin']
-            },
-            {
                 icon: 'view_module',
                 label: 'CompanyDash',
                 route: 'companydash',
                 visible: ['companyadmin']
             },
+            {
+                icon: 'person_search',
+                label: 'List Employees',
+                route: 'employeelist',
+                visible: ['companyadmin']
+            },
+            {
+                icon: 'directions_car',
+                label: 'Trip',
+                route: 'add-trip',
+                visible: ['user', 'companyadmin', 'Admin']
+            },
+            
             {
                 icon: 'compare_arrows',
                 label: 'Trade',
@@ -137,6 +144,7 @@ export class CtsSidenavComponent implements OnInit {
                 route: 'admindash',
                 visible: ['globaladmin']
             },
+            
             {
                 icon: 'settings',
                 label: 'Settings',
