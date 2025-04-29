@@ -113,12 +113,13 @@ export class AddTripComponent implements OnInit {
     const user = this.cacheService.getCache('user');
     const employeeID = user?._id;
     const companyID = user?._companyID;
+    const cleaneddistance = distance.replace(/,/g, '').replace(/[^\d.]/g, '');
    
     const tripData = {
       
       _employeeID: employeeID, 
       _companyID: companyID,
-      distance: parseFloat(distance),
+      distance: parseFloat(cleaneddistance),
       method,
       points, 
       isdeleted: false,
