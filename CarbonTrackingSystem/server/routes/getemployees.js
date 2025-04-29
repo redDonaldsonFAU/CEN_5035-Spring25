@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
       }
 
     try {
-        const employees = await Employee.find({ _companyID: companyID }); // assuming field is named _companyID
+        const employees = await Employee.find({ _companyID: companyID }).sort({ Firstname: 1 }); // assuming field is named _companyID
         res.json(employees);
     } catch (err) {
         console.error(err);
